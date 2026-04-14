@@ -53,10 +53,15 @@ import { site } from '../data/content';
     <section class="about" id="about">
       <h2>À <em>propos</em>.</h2>
       <div class="about-grid">
-        <div class="lead">
-          <p>{site.about.intro}</p>
-        </div>
-        <div class="body">
+        <figure class="portrait-col">
+          <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+          <figcaption>
+            <span class="cap-name">Thomas</span>
+            <span class="cap-role">Sourcier professionnel</span>
+          </figcaption>
+        </figure>
+        <div class="text-col">
+          <p class="lead">{site.about.intro}</p>
           <p>{site.about.parcours}</p>
           <p>{site.about.methode}</p>
         </div>
@@ -191,6 +196,18 @@ import { site } from '../data/content';
       </div>
     </section>
 
+    <section class="palette-strip" id="palette">
+      <h2>Palette <em>chromatique.</em></h2>
+      <p class="intro">Inspiration : robinet blanc, mur bleu saturé, détail jaune soufre (jatin-saini). Chromatique graphique et franche.</p>
+      <div class="swatches">
+        <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
+        <div class="swatch"><div class="chip" style="background:#0a0a0a"></div><span class="sw-name">Encre</span><span class="sw-hex">#0A0A0A</span></div>
+        <div class="swatch"><div class="chip" style="background:#1c5880"></div><span class="sw-name">Indigo</span><span class="sw-hex">#1C5880</span></div>
+        <div class="swatch"><div class="chip" style="background:#e0b237"></div><span class="sw-name">Soufre</span><span class="sw-hex">#E0B237</span></div>
+        <div class="swatch"><div class="chip" style="background:#8a8a88"></div><span class="sw-name">Graphite</span><span class="sw-hex">#8A8A88</span></div>
+      </div>
+    </section>
+
     <footer class="footer">
       <div class="foot-main">
         <div>
@@ -257,7 +274,7 @@ import { site } from '../data/content';
       font-family: 'Fraunces', 'Crimson Pro', Georgia, serif;
       font-optical-sizing: auto;
       font-variation-settings: 'SOFT' 50, 'WONK' 0;
-      color: #1e40af;
+      color: #1c5880;
     }
     h1 {
       font-size: clamp(3rem, 7.5vw, 5.4rem);
@@ -317,7 +334,7 @@ import { site } from '../data/content';
       letter-spacing: -0.005em;
       transition: background 180ms;
     }
-    .btn:hover { background: #1e40af; }
+    .btn:hover { background: #1c5880; }
     .link {
       display: inline-flex;
       align-items: center;
@@ -329,7 +346,7 @@ import { site } from '../data/content';
       border-bottom: 1px solid #0a0a0a;
       padding-bottom: 2px;
     }
-    .link:hover { color: #1e40af; border-color: #1e40af; }
+    .link:hover { color: #1c5880; border-color: #1c5880; }
 
     /* Grid 3 colonnes */
     .grid3 {
@@ -345,7 +362,7 @@ import { site } from '../data/content';
       font-size: 0.88rem;
       font-weight: 500;
       font-style: italic;
-      color: #1e40af;
+      color: #1c5880;
       margin-bottom: 1rem;
       letter-spacing: 0;
     }
@@ -361,27 +378,56 @@ import { site } from '../data/content';
     /* About */
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1.4fr;
+      grid-template-columns: 0.9fr 1.4fr;
       gap: 3rem;
+      align-items: start;
     }
-    .about-grid .lead p {
+    .portrait-col {
+      margin: 0;
+    }
+    .portrait-col img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1);
+    }
+    .portrait-col figcaption {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .cap-name {
       font-family: 'Fraunces', serif;
       font-size: 1.4rem;
-      line-height: 1.4;
+      font-weight: 500;
+      color: #1c5880;
+      letter-spacing: -0.01em;
+    }
+    .cap-role {
+      font-size: 0.82rem;
+      color: #6b6b6b;
+      font-weight: 500;
+    }
+    .text-col p.lead {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      line-height: 1.45;
       font-weight: 500;
       font-style: italic;
-      margin: 0;
+      margin: 0 0 1.25rem;
       letter-spacing: -0.015em;
       color: #0a0a0a;
     }
-    .about-grid .body p {
+    .text-col p {
       margin: 0 0 1.1rem;
       line-height: 1.65;
       color: #4b4b4b;
       max-width: 60ch;
       font-size: 1rem;
     }
-    .about-grid .body p:last-child { margin-bottom: 0; }
+    .text-col p:last-child { margin-bottom: 0; }
     .points {
       margin-top: 3rem;
       padding-top: 2.5rem;
@@ -396,7 +442,7 @@ import { site } from '../data/content';
       font-weight: 600;
       font-style: italic;
       margin: 0 0 0.5rem;
-      color: #1e40af;
+      color: #1c5880;
     }
     .pt-text {
       margin: 0;
@@ -451,7 +497,7 @@ import { site } from '../data/content';
       align-items: baseline;
       font-weight: 500;
       letter-spacing: -0.04em;
-      color: #1e40af;
+      color: #1c5880;
       line-height: 0.9;
     }
     .price-n {
@@ -482,7 +528,7 @@ import { site } from '../data/content';
       font-size: 0.92rem;
       font-weight: 500;
       font-style: italic;
-      color: #1e40af;
+      color: #1c5880;
       margin: 0 0 0.6rem;
     }
     .zone-grid .val {
@@ -520,7 +566,7 @@ import { site } from '../data/content';
     .toggle {
       font-family: 'Inter', sans-serif;
       font-size: 1.4rem;
-      color: #1e40af;
+      color: #1c5880;
       font-weight: 300;
       line-height: 0.8;
       flex-shrink: 0;
@@ -593,7 +639,7 @@ import { site } from '../data/content';
       font-style: italic;
       font-size: 0.92rem;
       font-weight: 500;
-      color: #1e40af;
+      color: #1c5880;
     }
     .form input, .form select, .form textarea {
       font-family: 'Inter', sans-serif;
@@ -608,7 +654,7 @@ import { site } from '../data/content';
     .form textarea { resize: vertical; }
     .form input:focus, .form select:focus, .form textarea:focus {
       outline: none;
-      border-bottom-color: #1e40af;
+      border-bottom-color: #1c5880;
       border-bottom-width: 2px;
     }
     .form button {
@@ -625,7 +671,7 @@ import { site } from '../data/content';
       margin-top: 0.75rem;
       transition: background 180ms;
     }
-    .form button:hover { background: #1e40af; }
+    .form button:hover { background: #1c5880; }
     .coords {
       display: flex;
       flex-direction: column;
@@ -643,7 +689,50 @@ import { site } from '../data/content';
       text-decoration: none;
       border-bottom: 1px solid #0a0a0a;
     }
-    .coords a:hover { color: #1e40af; border-color: #1e40af; }
+    .coords a:hover { color: #1c5880; border-color: #1c5880; }
+
+    /* Palette strip — grille Swiss */
+    .palette-strip .intro {
+      max-width: 60ch;
+      color: #4b4b4b;
+      line-height: 1.6;
+      margin: 0 0 2.5rem;
+      font-size: 1rem;
+    }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chip {
+      width: 100%;
+      aspect-ratio: 1 / 1.1;
+    }
+    .sw-name {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #1c5880;
+    }
+    .sw-hex {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: #6b6b6b;
+    }
+    @media (max-width: 700px) {
+      .swatches { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Accent jaune — rehauts secondaires */
+    .faq-list summary:hover .toggle { color: #e0b237; }
+    .forfait-main ul li::before { color: #e0b237; }
 
     /* Footer */
     .footer {
@@ -663,7 +752,7 @@ import { site } from '../data/content';
       font-weight: 500;
       font-style: italic;
       margin: 0 0 0.25rem;
-      color: #1e40af;
+      color: #1c5880;
       letter-spacing: -0.01em;
     }
     .f-muted { font-size: 0.88rem; color: #6b6b6b; margin: 0; }
@@ -673,7 +762,7 @@ import { site } from '../data/content';
       font-size: 0.92rem;
       font-weight: 500;
       margin: 0 0 0.75rem;
-      color: #1e40af;
+      color: #1c5880;
     }
     .f-col p {
       margin: 0 0 0.4rem;
@@ -686,7 +775,7 @@ import { site } from '../data/content';
       text-decoration: none;
       border-bottom: 1px solid transparent;
     }
-    .f-col a:hover { border-color: #1e40af; color: #1e40af; }
+    .f-col a:hover { border-color: #1c5880; color: #1c5880; }
     .clause-wrap {
       padding: 2rem 0;
       border-top: 1px solid #e5e5e5;
@@ -699,7 +788,7 @@ import { site } from '../data/content';
       font-size: 0.92rem;
       font-weight: 500;
       margin: 0 0 0.75rem;
-      color: #1e40af;
+      color: #1c5880;
     }
     .clause-wrap .clause {
       margin: 0;
@@ -720,6 +809,7 @@ import { site } from '../data/content';
     @media (max-width: 900px) {
       .grid3 { grid-template-columns: 1fr; gap: 1.75rem; }
       .about-grid { grid-template-columns: 1fr; }
+      .portrait-col { max-width: 320px; }
       .points { grid-template-columns: 1fr; }
       .forfaits-list > li { grid-template-columns: 1fr; gap: 1rem; }
       .t-list figure { grid-template-columns: 1fr; }
