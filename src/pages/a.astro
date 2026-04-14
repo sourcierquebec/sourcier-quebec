@@ -16,18 +16,12 @@ import { site } from '../data/content';
   <Switcher current="a" />
 
   <div class="page">
-    {/* Top bar */}
     <div class="topbar">
-      <span>Sourcier Québec · § Projet 2026</span>
+      <span>Sourcier Québec</span>
       <span>47.3667° N · 70.0333° O · La Pocatière, QC</span>
     </div>
 
-    {/* 01 Hero */}
     <section class="hero" id="hero">
-      <div class="hero-marks">
-        <span>§ 01</span>
-        <span>Introduction</span>
-      </div>
       <h1>
         L'expertise de l'eau<br />
         au service de <em>votre terrain.</em>
@@ -44,19 +38,14 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 02 Piliers — coupe géologique horizontale */}
     <section class="piliers" id="piliers">
       <header class="section-head">
-        <span class="num">§ 02</span>
         <h2>Les trois piliers de la démarche</h2>
       </header>
-      <div class="strates">
+      <div class="piliers-grid">
         {site.piliers.map((p) => (
-          <article class="strate">
-            <div class="strate-meta">
-              <span class="strate-num">{p.num}</span>
-              <span class="hachures" aria-hidden="true"></span>
-            </div>
+          <article class="pilier">
+            <span class="p-num">{p.num}</span>
             <h3>{p.titre}</h3>
             <p>{p.texte}</p>
           </article>
@@ -64,10 +53,8 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 03 À Propos */}
     <section class="about" id="about">
       <header class="section-head">
-        <span class="num">§ 03</span>
         <h2>À propos &amp; services</h2>
       </header>
       <div class="about-grid">
@@ -90,10 +77,8 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 04 Forfaits */}
     <section class="forfaits" id="forfaits">
       <header class="section-head">
-        <span class="num">§ 04</span>
         <h2>Forfaits et tarification</h2>
       </header>
       <div class="table">
@@ -124,10 +109,8 @@ import { site } from '../data/content';
       <p class="note">{site.zone.note}</p>
     </section>
 
-    {/* 05 Zone */}
     <section class="zone" id="zone">
       <header class="section-head">
-        <span class="num">§ 05</span>
         <h2>Zone d'intervention</h2>
       </header>
       <div class="zone-grid">
@@ -151,17 +134,14 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 06 FAQ */}
     <section class="faq" id="faq">
       <header class="section-head">
-        <span class="num">§ 06</span>
         <h2>Foire aux questions</h2>
       </header>
       <div class="faq-list">
         {site.faq.map((item, i) => (
           <details open={i === 0}>
             <summary>
-              <span class="faq-num">{String(i + 1).padStart(2, '0')}</span>
               <span>{item.q}</span>
               <span class="chev">+</span>
             </summary>
@@ -171,10 +151,8 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 07 Témoignages */}
     <section class="temoignages" id="temoignages">
       <header class="section-head">
-        <span class="num">§ 07</span>
         <h2>Témoignages</h2>
       </header>
       <p class="intro-t">{site.temoignages.intro}</p>
@@ -188,10 +166,8 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 08 Contact */}
     <section class="contact" id="contact">
       <header class="section-head">
-        <span class="num">§ 08</span>
         <h2>Formulaire de contact</h2>
       </header>
       <div class="contact-grid">
@@ -220,7 +196,6 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    {/* 09 Footer */}
     <footer class="footer" id="footer">
       <div class="foot-grid">
         <div>
@@ -258,9 +233,9 @@ import { site } from '../data/content';
       background-size: 24px 24px;
     }
     .page {
-      max-width: 1200px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0 clamp(1.25rem, 4vw, 3rem);
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
     }
     .topbar {
       display: flex;
@@ -280,15 +255,6 @@ import { site } from '../data/content';
       border-top: 1px solid rgba(14, 28, 59, 0.25);
       padding-top: 1.25rem;
     }
-    .section-head .num {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #b3452e;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
     .section-head h2 {
       font-size: clamp(1.8rem, 3vw, 2.6rem);
       margin: 0;
@@ -297,21 +263,9 @@ import { site } from '../data/content';
     }
 
     /* Hero */
-    .hero {
-      padding: 4rem 0 3rem;
-    }
-    .hero-marks {
-      display: flex;
-      gap: 2rem;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(14, 28, 59, 0.6);
-      margin-bottom: 1.5rem;
-    }
+    .hero { padding: 4rem 0 3rem; }
     .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-size: clamp(2.8rem, 7vw, 5.4rem);
       line-height: 0.98;
       letter-spacing: -0.02em;
       margin: 0 0 1.75rem;
@@ -323,7 +277,7 @@ import { site } from '../data/content';
       color: #b3452e;
     }
     .lede {
-      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      font-size: clamp(1.1rem, 1.6vw, 1.3rem);
       line-height: 1.55;
       max-width: 56ch;
       margin: 0 0 2.25rem;
@@ -345,15 +299,9 @@ import { site } from '../data/content';
       border: 1px solid #0e1c3b;
       transition: all 150ms;
     }
-    .btn {
-      background: #0e1c3b;
-      color: #ede4d1;
-    }
+    .btn { background: #0e1c3b; color: #ede4d1; }
     .btn:hover { background: #b3452e; border-color: #b3452e; }
-    .btn-ghost {
-      background: transparent;
-      color: #0e1c3b;
-    }
+    .btn-ghost { background: transparent; color: #0e1c3b; }
     .btn-ghost:hover { background: rgba(14, 28, 59, 0.08); }
     .hero-meta {
       display: grid;
@@ -362,11 +310,7 @@ import { site } from '../data/content';
       padding-top: 1.5rem;
       border-top: 1px solid rgba(14, 28, 59, 0.2);
     }
-    .hero-meta > div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
+    .hero-meta > div { display: flex; flex-direction: column; gap: 0.2rem; }
     .hero-meta .k {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 0.68rem;
@@ -374,55 +318,41 @@ import { site } from '../data/content';
       text-transform: uppercase;
       color: rgba(14, 28, 59, 0.55);
     }
-    .hero-meta .v {
-      font-size: 1rem;
-    }
+    .hero-meta .v { font-size: 1rem; }
 
-    /* Piliers */
-    .strates {
+    /* Piliers — 3 colonnes équilibrées */
+    .piliers-grid {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
-    .strate {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
+    .pilier {
+      padding: 2rem 1.75rem;
       background: rgba(247, 243, 234, 0.6);
       border: 1px solid rgba(14, 28, 59, 0.25);
-      position: relative;
-    }
-    .strate-meta {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1rem;
     }
-    .strate-num {
+    .p-num {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 2.5rem;
-      font-weight: 500;
-      line-height: 1;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
       color: #b3452e;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(14, 28, 59, 0.25);
     }
-    .hachures {
-      flex: 1;
-      background-image: repeating-linear-gradient(
-        135deg,
-        rgba(14, 28, 59, 0.4) 0,
-        rgba(14, 28, 59, 0.4) 1px,
-        transparent 1px,
-        transparent 8px
-      );
-    }
-    .strate h3 {
-      font-size: 1.6rem;
-      margin: 0 0 0.75rem;
+    .pilier h3 {
+      font-size: 1.5rem;
+      margin: 0;
       font-weight: 500;
+      letter-spacing: -0.01em;
     }
-    .strate p {
+    .pilier p {
       margin: 0;
       line-height: 1.55;
       color: rgba(14, 28, 59, 0.85);
+      font-size: 0.98rem;
     }
 
     /* About */
@@ -526,9 +456,7 @@ import { site } from '../data/content';
       margin-bottom: 0.25rem;
     }
     .surface .v { font-size: 1rem; }
-    .prix {
-      text-align: right;
-    }
+    .prix { text-align: right; }
     .amount {
       font-family: 'Crimson Pro', serif;
       font-size: 3.2rem;
@@ -536,10 +464,7 @@ import { site } from '../data/content';
       color: #b3452e;
       line-height: 1;
     }
-    .amount sup {
-      font-size: 0.4em;
-      margin-left: 0.1em;
-    }
+    .amount sup { font-size: 0.4em; margin-left: 0.1em; }
     .note {
       margin-top: 1rem;
       font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -550,7 +475,7 @@ import { site } from '../data/content';
     /* Zone */
     .zone-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 2rem;
       padding: 2rem;
       border: 1px solid rgba(14, 28, 59, 0.25);
@@ -575,31 +500,22 @@ import { site } from '../data/content';
       color: rgba(14, 28, 59, 0.6);
       margin: 0;
     }
-    .regions {
-      margin: 0 0 1rem;
-      padding: 0;
-      list-style: none;
-    }
+    .regions { margin: 0 0 1rem; padding: 0; list-style: none; }
     .regions li {
       padding: 0.3rem 0;
       border-bottom: 1px dashed rgba(14, 28, 59, 0.2);
     }
-    .muted {
-      color: rgba(14, 28, 59, 0.6);
-      font-size: 0.92rem;
-    }
+    .muted { color: rgba(14, 28, 59, 0.6); font-size: 0.92rem; }
 
     /* FAQ */
     .faq-list details {
       border-top: 1px solid rgba(14, 28, 59, 0.2);
       padding: 1.25rem 0;
     }
-    .faq-list details:last-child {
-      border-bottom: 1px solid rgba(14, 28, 59, 0.2);
-    }
+    .faq-list details:last-child { border-bottom: 1px solid rgba(14, 28, 59, 0.2); }
     .faq-list summary {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
+      display: flex;
+      justify-content: space-between;
       gap: 1rem;
       align-items: center;
       cursor: pointer;
@@ -607,11 +523,6 @@ import { site } from '../data/content';
       list-style: none;
     }
     .faq-list summary::-webkit-details-marker { display: none; }
-    .faq-num {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.85rem;
-      color: #b3452e;
-    }
     .chev {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 1.2rem;
@@ -620,7 +531,7 @@ import { site } from '../data/content';
     .faq-list details[open] .chev::before { content: '−'; }
     .faq-list details[open] .chev { font-size: 1.2rem; }
     .faq-list details p {
-      margin: 1rem 0 0 2rem;
+      margin: 1rem 0 0;
       line-height: 1.6;
       color: rgba(14, 28, 59, 0.82);
       max-width: 70ch;
@@ -634,7 +545,7 @@ import { site } from '../data/content';
     }
     .avis {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.25rem;
     }
     .avis blockquote {
@@ -728,11 +639,7 @@ import { site } from '../data/content';
       gap: 2rem;
       margin-bottom: 2rem;
     }
-    .brand {
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin: 0 0 0.25rem;
-    }
+    .brand { font-size: 1.3rem; font-weight: 500; margin: 0 0 0.25rem; }
     .clause {
       font-size: 0.82rem;
       line-height: 1.5;
@@ -751,6 +658,7 @@ import { site } from '../data/content';
     }
 
     @media (max-width: 780px) {
+      .piliers-grid { grid-template-columns: 1fr; }
       .about-grid, .contact-grid, .foot-grid { grid-template-columns: 1fr; }
       .about-points { border-left: none; padding-left: 0; border-top: 1px solid rgba(14, 28, 59, 0.2); padding-top: 1.5rem; }
       .row, .thead { grid-template-columns: 1fr; }
@@ -758,9 +666,6 @@ import { site } from '../data/content';
       .row { text-align: left; }
       .prix { text-align: left; }
       .form { grid-template-columns: 1fr; }
-      .strate { grid-template-columns: 1fr; }
-      .strate-meta { flex-direction: row; align-items: center; }
-      .hachures { height: 2px; }
     }
   </style>
 </Base>
