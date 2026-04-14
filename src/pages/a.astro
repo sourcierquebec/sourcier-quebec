@@ -1,0 +1,766 @@
+---
+import Base from '../layouts/Base.astro';
+import Switcher from '../components/Switcher.astro';
+import { site } from '../data/content';
+---
+<Base title={`${site.meta.brand} — Direction A · Cartographique`}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+  </Fragment>
+
+  <Switcher current="a" />
+
+  <div class="page">
+    {/* Top bar */}
+    <div class="topbar">
+      <span>Sourcier Québec · § Projet 2026</span>
+      <span>47.3667° N · 70.0333° O · La Pocatière, QC</span>
+    </div>
+
+    {/* 01 Hero */}
+    <section class="hero" id="hero">
+      <div class="hero-marks">
+        <span>§ 01</span>
+        <span>Introduction</span>
+      </div>
+      <h1>
+        L'expertise de l'eau<br />
+        au service de <em>votre terrain.</em>
+      </h1>
+      <p class="lede">{site.hero.accroche}</p>
+      <div class="hero-actions">
+        <a class="btn" href={site.hero.cta.href}>{site.hero.cta.label}</a>
+        <a class="btn-ghost" href="#forfaits">Voir les forfaits</a>
+      </div>
+      <div class="hero-meta">
+        <div><span class="k">Basé à</span><span class="v">La Pocatière, QC</span></div>
+        <div><span class="k">Pratique</span><span class="v">10+ années</span></div>
+        <div><span class="k">Certification</span><span class="v">Formé en France</span></div>
+      </div>
+    </section>
+
+    {/* 02 Piliers — coupe géologique horizontale */}
+    <section class="piliers" id="piliers">
+      <header class="section-head">
+        <span class="num">§ 02</span>
+        <h2>Les trois piliers de la démarche</h2>
+      </header>
+      <div class="strates">
+        {site.piliers.map((p) => (
+          <article class="strate">
+            <div class="strate-meta">
+              <span class="strate-num">{p.num}</span>
+              <span class="hachures" aria-hidden="true"></span>
+            </div>
+            <h3>{p.titre}</h3>
+            <p>{p.texte}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {/* 03 À Propos */}
+    <section class="about" id="about">
+      <header class="section-head">
+        <span class="num">§ 03</span>
+        <h2>À propos &amp; services</h2>
+      </header>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="drop">{site.about.intro}</p>
+          <p>{site.about.parcours}</p>
+          <p>{site.about.methode}</p>
+        </div>
+        <div class="about-points">
+          {site.about.points.map((pt, i) => (
+            <div class="point">
+              <span class="point-num">0{i + 1}</span>
+              <div>
+                <h4>{pt.titre}</h4>
+                <p>{pt.texte}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 04 Forfaits */}
+    <section class="forfaits" id="forfaits">
+      <header class="section-head">
+        <span class="num">§ 04</span>
+        <h2>Forfaits et tarification</h2>
+      </header>
+      <div class="table">
+        <div class="thead">
+          <span>Forfait</span>
+          <span>Périmètre</span>
+          <span>Tarif</span>
+        </div>
+        {site.forfaits.map((f) => (
+          <article class="row">
+            <div class="cell name">
+              <h3>{f.nom}</h3>
+              <p class="cible">{f.cible}</p>
+              <ul>
+                {f.inclusions.map((inc) => <li>{inc}</li>)}
+              </ul>
+            </div>
+            <div class="cell surface">
+              <span class="k">Surface</span>
+              <span class="v">{f.surface}</span>
+            </div>
+            <div class="cell prix">
+              <span class="amount">{f.prix}<sup>$</sup></span>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="note">{site.zone.note}</p>
+    </section>
+
+    {/* 05 Zone */}
+    <section class="zone" id="zone">
+      <header class="section-head">
+        <span class="num">§ 05</span>
+        <h2>Zone d'intervention</h2>
+      </header>
+      <div class="zone-grid">
+        <div>
+          <p class="label">Base opérationnelle</p>
+          <p class="big">{site.zone.base}</p>
+          <p class="coord">{site.zone.coords}</p>
+        </div>
+        <div>
+          <p class="label">Régions principales</p>
+          <ul class="regions">
+            {site.zone.regions.map((r) => <li>{r}</li>)}
+          </ul>
+          <p class="muted">{site.zone.autre}</p>
+        </div>
+        <div>
+          <p class="label">Frais de déplacement</p>
+          <p><strong>Inclus :</strong> {site.zone.rayonInclus}</p>
+          <p><strong>Au-delà :</strong> {site.zone.tarifKm}</p>
+        </div>
+      </div>
+    </section>
+
+    {/* 06 FAQ */}
+    <section class="faq" id="faq">
+      <header class="section-head">
+        <span class="num">§ 06</span>
+        <h2>Foire aux questions</h2>
+      </header>
+      <div class="faq-list">
+        {site.faq.map((item, i) => (
+          <details open={i === 0}>
+            <summary>
+              <span class="faq-num">{String(i + 1).padStart(2, '0')}</span>
+              <span>{item.q}</span>
+              <span class="chev">+</span>
+            </summary>
+            <p>{item.r}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    {/* 07 Témoignages */}
+    <section class="temoignages" id="temoignages">
+      <header class="section-head">
+        <span class="num">§ 07</span>
+        <h2>Témoignages</h2>
+      </header>
+      <p class="intro-t">{site.temoignages.intro}</p>
+      <div class="avis">
+        {site.temoignages.placeholders.map((t) => (
+          <blockquote>
+            <p>« {t.texte} »</p>
+            <footer>— {t.auteur}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </section>
+
+    {/* 08 Contact */}
+    <section class="contact" id="contact">
+      <header class="section-head">
+        <span class="num">§ 08</span>
+        <h2>Formulaire de contact</h2>
+      </header>
+      <div class="contact-grid">
+        <form class="form" method="post" action="#" aria-label="Formulaire de contact">
+          <label><span>Nom</span><input type="text" name="nom" required /></label>
+          <label><span>Courriel</span><input type="email" name="email" required /></label>
+          <label><span>Téléphone</span><input type="tel" name="tel" /></label>
+          <label><span>Type de projet</span>
+            <select name="type">
+              <option>Résidentiel</option>
+              <option>Agricole / Grand terrain</option>
+              <option>Municipal</option>
+              <option>Autre</option>
+            </select>
+          </label>
+          <label class="full"><span>Décrivez votre projet</span><textarea name="message" rows="5" required></textarea></label>
+          <button type="submit">Envoyer la demande →</button>
+        </form>
+        <aside class="coords">
+          <p class="label">Coordonnées</p>
+          <p>{site.contact.adresse}</p>
+          <p><a href={`tel:${site.contact.telRaw}`}>{site.contact.tel}</a></p>
+          <p><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+          <p class="muted">{site.contact.horaires}</p>
+        </aside>
+      </div>
+    </section>
+
+    {/* 09 Footer */}
+    <footer class="footer" id="footer">
+      <div class="foot-grid">
+        <div>
+          <p class="brand">Sourcier Québec</p>
+          <p class="muted">Thomas · Sourcier professionnel</p>
+        </div>
+        <div>
+          <p class="label">Contact</p>
+          <p>{site.contact.tel}</p>
+          <p>{site.contact.email}</p>
+        </div>
+        <div>
+          <p class="label">Avis important</p>
+          <p class="clause">{site.legal.clause}</p>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 Sourcier Québec</span>
+        <span>Conçu avec précision · La Pocatière</span>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    :global(html, body) {
+      margin: 0;
+      padding: 0;
+      background: #ede4d1;
+      color: #0e1c3b;
+      font-family: 'Crimson Pro', ui-serif, Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    :global(body) {
+      background-image: radial-gradient(circle at 1px 1px, rgba(14, 28, 59, 0.08) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 3rem);
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.6);
+      border-bottom: 1px solid rgba(14, 28, 59, 0.2);
+    }
+
+    .section-head {
+      margin: 5rem 0 2rem;
+      border-top: 1px solid rgba(14, 28, 59, 0.25);
+      padding-top: 1.25rem;
+    }
+    .section-head .num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b3452e;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin: 0;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+    .hero-marks {
+      display: flex;
+      gap: 2rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.6);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin: 0 0 1.75rem;
+      font-weight: 500;
+      max-width: 14ch;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: #b3452e;
+    }
+    .lede {
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      line-height: 1.55;
+      max-width: 56ch;
+      margin: 0 0 2.25rem;
+      color: rgba(14, 28, 59, 0.85);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .btn, .btn-ghost {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.85rem 1.25rem;
+      text-decoration: none;
+      border: 1px solid #0e1c3b;
+      transition: all 150ms;
+    }
+    .btn {
+      background: #0e1c3b;
+      color: #ede4d1;
+    }
+    .btn:hover { background: #b3452e; border-color: #b3452e; }
+    .btn-ghost {
+      background: transparent;
+      color: #0e1c3b;
+    }
+    .btn-ghost:hover { background: rgba(14, 28, 59, 0.08); }
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(14, 28, 59, 0.2);
+    }
+    .hero-meta > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .hero-meta .k {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.55);
+    }
+    .hero-meta .v {
+      font-size: 1rem;
+    }
+
+    /* Piliers */
+    .strates {
+      display: grid;
+      gap: 1.25rem;
+    }
+    .strate {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(247, 243, 234, 0.6);
+      border: 1px solid rgba(14, 28, 59, 0.25);
+      position: relative;
+    }
+    .strate-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .strate-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 2.5rem;
+      font-weight: 500;
+      line-height: 1;
+      color: #b3452e;
+    }
+    .hachures {
+      flex: 1;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(14, 28, 59, 0.4) 0,
+        rgba(14, 28, 59, 0.4) 1px,
+        transparent 1px,
+        transparent 8px
+      );
+    }
+    .strate h3 {
+      font-size: 1.6rem;
+      margin: 0 0 0.75rem;
+      font-weight: 500;
+    }
+    .strate p {
+      margin: 0;
+      line-height: 1.55;
+      color: rgba(14, 28, 59, 0.85);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+    }
+    .about-text p {
+      font-size: 1.08rem;
+      line-height: 1.6;
+      margin: 0 0 1.25rem;
+    }
+    .about-text .drop::first-letter {
+      font-size: 3.5em;
+      float: left;
+      line-height: 0.85;
+      padding: 0.1em 0.1em 0 0;
+      font-weight: 500;
+      color: #b3452e;
+    }
+    .about-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid rgba(14, 28, 59, 0.25);
+    }
+    .point {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+    }
+    .point-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.85rem;
+      color: #b3452e;
+      padding-top: 0.25rem;
+    }
+    .point h4 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .point p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: rgba(14, 28, 59, 0.8);
+    }
+
+    /* Forfaits */
+    .table {
+      border: 1px solid rgba(14, 28, 59, 0.25);
+      background: rgba(247, 243, 234, 0.6);
+    }
+    .thead {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      padding: 0.9rem 1.5rem;
+      background: #0e1c3b;
+      color: #ede4d1;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      padding: 1.75rem 1.5rem;
+      border-top: 1px solid rgba(14, 28, 59, 0.2);
+      align-items: center;
+      gap: 1rem;
+    }
+    .row h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+    .cible {
+      margin: 0 0 0.75rem;
+      font-style: italic;
+      color: rgba(14, 28, 59, 0.7);
+      font-size: 0.95rem;
+    }
+    .row ul {
+      margin: 0;
+      padding-left: 1rem;
+      font-size: 0.92rem;
+      color: rgba(14, 28, 59, 0.8);
+    }
+    .row ul li { margin-bottom: 0.2rem; }
+    .surface .k, .coords .label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.55);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .surface .v { font-size: 1rem; }
+    .prix {
+      text-align: right;
+    }
+    .amount {
+      font-family: 'Crimson Pro', serif;
+      font-size: 3.2rem;
+      font-weight: 500;
+      color: #b3452e;
+      line-height: 1;
+    }
+    .amount sup {
+      font-size: 0.4em;
+      margin-left: 0.1em;
+    }
+    .note {
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      color: rgba(14, 28, 59, 0.6);
+    }
+
+    /* Zone */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(14, 28, 59, 0.25);
+      background: rgba(247, 243, 234, 0.4);
+    }
+    .label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.55);
+      margin: 0 0 0.5rem;
+    }
+    .big {
+      font-size: 1.8rem;
+      margin: 0 0 0.25rem;
+      font-weight: 500;
+    }
+    .coord {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.8rem;
+      color: rgba(14, 28, 59, 0.6);
+      margin: 0;
+    }
+    .regions {
+      margin: 0 0 1rem;
+      padding: 0;
+      list-style: none;
+    }
+    .regions li {
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed rgba(14, 28, 59, 0.2);
+    }
+    .muted {
+      color: rgba(14, 28, 59, 0.6);
+      font-size: 0.92rem;
+    }
+
+    /* FAQ */
+    .faq-list details {
+      border-top: 1px solid rgba(14, 28, 59, 0.2);
+      padding: 1.25rem 0;
+    }
+    .faq-list details:last-child {
+      border-bottom: 1px solid rgba(14, 28, 59, 0.2);
+    }
+    .faq-list summary {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.85rem;
+      color: #b3452e;
+    }
+    .chev {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 1.2rem;
+      color: rgba(14, 28, 59, 0.5);
+    }
+    .faq-list details[open] .chev::before { content: '−'; }
+    .faq-list details[open] .chev { font-size: 1.2rem; }
+    .faq-list details p {
+      margin: 1rem 0 0 2rem;
+      line-height: 1.6;
+      color: rgba(14, 28, 59, 0.82);
+      max-width: 70ch;
+    }
+
+    /* Témoignages */
+    .intro-t {
+      max-width: 60ch;
+      color: rgba(14, 28, 59, 0.75);
+      margin-bottom: 2rem;
+    }
+    .avis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .avis blockquote {
+      margin: 0;
+      padding: 1.5rem;
+      background: rgba(247, 243, 234, 0.6);
+      border: 1px solid rgba(14, 28, 59, 0.2);
+      border-left: 3px solid #b3452e;
+    }
+    .avis blockquote p {
+      margin: 0 0 1rem;
+      font-style: italic;
+      line-height: 1.55;
+    }
+    .avis blockquote footer {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(14, 28, 59, 0.6);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.65);
+    }
+    .form label.full { grid-column: 1 / -1; }
+    .form input, .form select, .form textarea {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1rem;
+      padding: 0.7rem 0.85rem;
+      background: #f7f3ea;
+      border: 1px solid rgba(14, 28, 59, 0.3);
+      color: #0e1c3b;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none;
+      border-color: #b3452e;
+    }
+    .form button {
+      grid-column: 1 / -1;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.9rem 1.25rem;
+      background: #0e1c3b;
+      color: #ede4d1;
+      border: none;
+      cursor: pointer;
+      transition: background 150ms;
+    }
+    .form button:hover { background: #b3452e; }
+    .coords {
+      padding: 1.5rem;
+      background: rgba(247, 243, 234, 0.6);
+      border: 1px solid rgba(14, 28, 59, 0.25);
+    }
+    .coords p { margin: 0 0 0.5rem; line-height: 1.5; }
+    .coords a { color: #0e1c3b; border-bottom: 1px solid rgba(14, 28, 59, 0.3); text-decoration: none; }
+    .coords a:hover { color: #b3452e; border-color: #b3452e; }
+
+    /* Footer */
+    .footer {
+      margin-top: 5rem;
+      padding: 3rem 0 2rem;
+      border-top: 2px solid #0e1c3b;
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .brand {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    .clause {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: rgba(14, 28, 59, 0.7);
+    }
+    .copy {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(14, 28, 59, 0.2);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(14, 28, 59, 0.55);
+    }
+
+    @media (max-width: 780px) {
+      .about-grid, .contact-grid, .foot-grid { grid-template-columns: 1fr; }
+      .about-points { border-left: none; padding-left: 0; border-top: 1px solid rgba(14, 28, 59, 0.2); padding-top: 1.5rem; }
+      .row, .thead { grid-template-columns: 1fr; }
+      .thead { display: none; }
+      .row { text-align: left; }
+      .prix { text-align: left; }
+      .form { grid-template-columns: 1fr; }
+      .strate { grid-template-columns: 1fr; }
+      .strate-meta { flex-direction: row; align-items: center; }
+      .hachures { height: 2px; }
+    }
+  </style>
+</Base>

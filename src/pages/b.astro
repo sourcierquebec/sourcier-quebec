@@ -1,0 +1,819 @@
+---
+import Base from '../layouts/Base.astro';
+import Switcher from '../components/Switcher.astro';
+import { site } from '../data/content';
+
+const romans = ['I', 'II', 'III'];
+---
+<Base title={`${site.meta.brand} — Direction B · Éditorial`}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    />
+  </Fragment>
+
+  <Switcher current="b" />
+
+  {/* 01 Hero — full-viewport */}
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="eyebrow">Chapitre premier · La précision de l'eau</span>
+      <h1>
+        Sous vos pieds,<br />
+        <em>l'eau attend.</em>
+      </h1>
+      <p class="lede">{site.hero.accroche}</p>
+      <div class="actions">
+        <a class="cta" href={site.hero.cta.href}>{site.hero.cta.label}</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Descendre</span>
+        <span class="arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  {/* 02 Piliers — 3 chapitres */}
+  <section class="piliers" id="piliers">
+    <p class="part">Partie deux</p>
+    <h2 class="section-title">Trois piliers<br /><em>d'une démarche.</em></h2>
+    <div class="chapters">
+      {site.piliers.map((p, i) => (
+        <article class="chapter">
+          <span class="roman">{romans[i]}</span>
+          <div>
+            <h3>{p.titre}</h3>
+            <p>{p.texte}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* 03 À Propos */}
+  <section class="about" id="about">
+    <p class="part">Partie trois</p>
+    <div class="about-inner">
+      <div class="about-img" aria-hidden="true">
+        <div class="img-placeholder">
+          <span>Portrait de Thomas<br /><small>— à venir —</small></span>
+        </div>
+      </div>
+      <div class="about-text">
+        <h2 class="section-title"><em>L'homme</em><br />derrière la baguette.</h2>
+        <p class="intro-p">{site.about.intro}</p>
+        <p>{site.about.parcours}</p>
+        <p>{site.about.methode}</p>
+        <div class="points">
+          {site.about.points.map((pt) => (
+            <div class="point">
+              <h4>{pt.titre}</h4>
+              <p>{pt.texte}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 04 Forfaits */}
+  <section class="forfaits" id="forfaits">
+    <p class="part">Partie quatre</p>
+    <h2 class="section-title">Tarifs<br /><em>sans mystère.</em></h2>
+    <div class="forfaits-list">
+      {site.forfaits.map((f, i) => (
+        <article class="forfait-row">
+          <span class="f-num">0{i + 1}</span>
+          <div class="f-meta">
+            <h3>{f.nom}</h3>
+            <p class="surface">{f.surface} · {f.cible}</p>
+            <ul>
+              {f.inclusions.map((inc) => <li>{inc}</li>)}
+            </ul>
+          </div>
+          <div class="f-prix">
+            <span class="big-num">{f.prix}</span>
+            <span class="dollar">$</span>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="forfait-note">{site.zone.note}</p>
+  </section>
+
+  {/* 05 Zone */}
+  <section class="zone" id="zone">
+    <p class="part">Partie cinq</p>
+    <h2 class="section-title">Territoire<br /><em>d'intervention.</em></h2>
+    <div class="zone-grid">
+      <div class="zone-base">
+        <p class="zone-label">Base opérationnelle</p>
+        <p class="zone-city">{site.zone.base}</p>
+        <p class="zone-coord">{site.zone.coords}</p>
+      </div>
+      <div class="zone-regions">
+        <p class="zone-label">Régions desservies</p>
+        {site.zone.regions.map((r) => <p class="zone-region">{r}</p>)}
+        <p class="zone-muted">{site.zone.autre}</p>
+      </div>
+      <div class="zone-frais">
+        <p class="zone-label">Déplacement</p>
+        <p><em>Inclus :</em> {site.zone.rayonInclus}</p>
+        <p><em>Au-delà :</em> {site.zone.tarifKm}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* 06 FAQ */}
+  <section class="faq" id="faq">
+    <p class="part">Partie six</p>
+    <h2 class="section-title">Questions<br /><em>fréquentes.</em></h2>
+    <div class="faq-list">
+      {site.faq.map((item, i) => (
+        <details open={i === 0}>
+          <summary>
+            <span class="q-num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="q-text">{item.q}</span>
+          </summary>
+          <p>{item.r}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  {/* 07 Témoignages */}
+  <section class="temoignages" id="temoignages">
+    <p class="part">Partie sept</p>
+    <h2 class="section-title"><em>Voix</em><br />du terrain.</h2>
+    <p class="t-intro">{site.temoignages.intro}</p>
+    <div class="t-grid">
+      {site.temoignages.placeholders.map((t) => (
+        <figure>
+          <blockquote>{t.texte}</blockquote>
+          <figcaption>— {t.auteur}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {/* 08 Contact */}
+  <section class="contact" id="contact">
+    <p class="part">Partie huit</p>
+    <h2 class="section-title"><em>Commencer</em><br />une conversation.</h2>
+    <div class="contact-wrap">
+      <form class="form" method="post" action="#">
+        <div class="row2">
+          <label><span>Nom</span><input type="text" name="nom" required /></label>
+          <label><span>Courriel</span><input type="email" name="email" required /></label>
+        </div>
+        <div class="row2">
+          <label><span>Téléphone</span><input type="tel" name="tel" /></label>
+          <label><span>Type de projet</span>
+            <select name="type">
+              <option>Résidentiel</option>
+              <option>Agricole / Grand terrain</option>
+              <option>Municipal</option>
+              <option>Autre</option>
+            </select>
+          </label>
+        </div>
+        <label><span>Votre message</span><textarea name="message" rows="5" required></textarea></label>
+        <button type="submit">Envoyer le message →</button>
+      </form>
+      <aside class="coords">
+        <p class="zone-label">Me joindre</p>
+        <p class="coord-line">{site.contact.adresse}</p>
+        <p class="coord-line"><a href={`tel:${site.contact.telRaw}`}>{site.contact.tel}</a></p>
+        <p class="coord-line"><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+        <p class="coord-line muted">{site.contact.horaires}</p>
+      </aside>
+    </div>
+  </section>
+
+  {/* 09 Footer */}
+  <footer class="footer">
+    <div class="foot-top">
+      <div>
+        <p class="f-brand">Sourcier Québec</p>
+        <p class="f-muted">Thomas · {site.contact.adresse}</p>
+      </div>
+      <div class="f-links">
+        <a href="#piliers">Démarche</a>
+        <a href="#forfaits">Forfaits</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="clause">
+      <p class="zone-label">Avis important</p>
+      <p>{site.legal.clause}</p>
+    </div>
+    <div class="f-copy">
+      <span>© 2026 Sourcier Québec</span>
+      <span>Direction éditoriale</span>
+    </div>
+  </footer>
+
+  <style>
+    :global(html, body) {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0b;
+      color: #f5f1e8;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+    :global(section) {
+      padding: clamp(5rem, 12vh, 10rem) clamp(1.25rem, 6vw, 4rem);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .part {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #c18a3d;
+      margin: 0 0 1.5rem;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      margin: 0 0 3rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
+    }
+    .section-title em {
+      font-style: italic;
+      color: #c18a3d;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 6rem clamp(1.25rem, 6vw, 4rem) 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(111, 168, 196, 0.12), transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(193, 138, 61, 0.08), transparent 50%),
+        linear-gradient(180deg, #0a0a0b 0%, #0e0e10 60%, #141416 100%);
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 200px,
+        rgba(245, 241, 232, 0.04) 200px,
+        rgba(245, 241, 232, 0.04) 201px
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+    }
+    .eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #6fa8c4;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      margin: 0 0 2rem;
+      font-weight: 400;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: #c18a3d;
+    }
+    .lede {
+      font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+      line-height: 1.55;
+      max-width: 54ch;
+      margin: 0 0 2.5rem;
+      color: rgba(245, 241, 232, 0.78);
+    }
+    .actions { margin-bottom: 4rem; }
+    .cta {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #c18a3d;
+      color: #0a0a0b;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: transform 200ms, background 200ms;
+    }
+    .cta:hover {
+      background: #d9a04e;
+      transform: translateY(-2px);
+    }
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(245, 241, 232, 0.45);
+    }
+    .scroll-hint .arrow {
+      font-size: 1rem;
+      animation: bob 2s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* Piliers */
+    .chapters {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+    .chapter {
+      display: grid;
+      grid-template-columns: minmax(140px, 200px) 1fr;
+      gap: 3rem;
+      align-items: start;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+    }
+    .chapter:last-child { border-bottom: none; }
+    .roman {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.85;
+      color: #c18a3d;
+      opacity: 0.8;
+    }
+    .chapter h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin: 0 0 1rem;
+      font-weight: 500;
+    }
+    .chapter p {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      max-width: 60ch;
+      color: rgba(245, 241, 232, 0.78);
+      margin: 0;
+    }
+
+    /* About */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-img {
+      position: sticky;
+      top: 6rem;
+      aspect-ratio: 3 / 4;
+    }
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(135deg, #1a2832 0%, #0e1820 50%, #0a0a0b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid rgba(245, 241, 232, 0.12);
+      color: rgba(245, 241, 232, 0.5);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .img-placeholder small {
+      font-size: 0.75rem;
+      display: block;
+      margin-top: 0.5rem;
+      opacity: 0.6;
+    }
+    .img-placeholder::before,
+    .img-placeholder::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(245, 241, 232, 0.3);
+    }
+    .img-placeholder::before { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+    .img-placeholder::after { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+    .about-text p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: rgba(245, 241, 232, 0.8);
+      max-width: 60ch;
+      margin: 0 0 1.25rem;
+    }
+    .intro-p {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.5rem !important;
+      font-style: italic;
+      color: #f5f1e8 !important;
+      border-left: 2px solid #c18a3d;
+      padding-left: 1.5rem;
+    }
+    .points {
+      margin-top: 3rem;
+      display: grid;
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245, 241, 232, 0.1);
+    }
+    .point h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem;
+      font-weight: 500;
+      color: #c18a3d;
+    }
+    .point p {
+      margin: 0 !important;
+      font-size: 1rem !important;
+    }
+
+    /* Forfaits */
+    .forfaits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .forfait-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2.5rem;
+      align-items: center;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .forfait-row:last-child { border-bottom: 1px solid rgba(245, 241, 232, 0.15); }
+    .f-num {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: #c18a3d;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .forfait-row h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      margin: 0 0 0.5rem;
+      font-weight: 500;
+    }
+    .surface {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(245, 241, 232, 0.55);
+      margin: 0 0 1rem;
+    }
+    .forfait-row ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+    }
+    .forfait-row ul li {
+      font-size: 0.92rem;
+      color: rgba(245, 241, 232, 0.7);
+      position: relative;
+      padding-left: 0.9rem;
+    }
+    .forfait-row ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: #c18a3d;
+    }
+    .f-prix {
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      align-items: baseline;
+      color: #c18a3d;
+    }
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 0.9;
+      font-weight: 400;
+      font-style: italic;
+    }
+    .dollar {
+      font-size: 1.5rem;
+      margin-left: 0.2rem;
+    }
+    .forfait-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(245, 241, 232, 0.5);
+      font-style: italic;
+    }
+
+    /* Zone */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .zone-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #6fa8c4;
+      margin: 0 0 1rem;
+    }
+    .zone-city {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    .zone-coord {
+      font-size: 0.85rem;
+      color: rgba(245, 241, 232, 0.55);
+      margin: 0;
+    }
+    .zone-region {
+      font-size: 1.15rem;
+      margin: 0 0 0.4rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+    .zone-muted, .zone-frais p {
+      color: rgba(245, 241, 232, 0.75);
+      line-height: 1.55;
+      margin: 0 0 0.5rem;
+    }
+    .zone-frais em {
+      color: #c18a3d;
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* FAQ */
+    .faq-list details {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .faq-list details:last-child {
+      border-bottom: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .faq-list summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .q-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #c18a3d;
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      font-weight: 500;
+      color: #f5f1e8;
+    }
+    .faq-list details p {
+      margin: 1.5rem 0 0 calc(1.3rem + 2rem);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(245, 241, 232, 0.78);
+      max-width: 70ch;
+    }
+
+    /* Témoignages */
+    .t-intro {
+      max-width: 60ch;
+      color: rgba(245, 241, 232, 0.7);
+      margin: 0 0 3rem;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+    .t-grid figure {
+      margin: 0;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(245, 241, 232, 0.2);
+    }
+    .t-grid blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.5;
+      margin: 0 0 1.5rem;
+      color: #f5f1e8;
+    }
+    .t-grid blockquote::before {
+      content: '« ';
+      color: #c18a3d;
+    }
+    .t-grid blockquote::after {
+      content: ' »';
+      color: #c18a3d;
+    }
+    .t-grid figcaption {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(245, 241, 232, 0.55);
+    }
+
+    /* Contact */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(245, 241, 232, 0.55);
+    }
+    .form input, .form select, .form textarea {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245, 241, 232, 0.3);
+      color: #f5f1e8;
+      padding: 0.75rem 0;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none;
+      border-bottom-color: #c18a3d;
+    }
+    .form select option { color: #0a0a0b; }
+    .form button {
+      align-self: flex-start;
+      margin-top: 1rem;
+      padding: 1rem 2rem;
+      background: #c18a3d;
+      color: #0a0a0b;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 200ms, transform 200ms;
+    }
+    .form button:hover {
+      background: #d9a04e;
+      transform: translateY(-2px);
+    }
+    .coords {
+      padding: 2rem;
+      background: rgba(245, 241, 232, 0.03);
+      border-left: 2px solid #c18a3d;
+    }
+    .coord-line {
+      margin: 0 0 0.75rem;
+      line-height: 1.55;
+    }
+    .coord-line a {
+      color: #f5f1e8;
+      text-decoration: none;
+      border-bottom: 1px solid #c18a3d;
+    }
+    .coord-line.muted {
+      color: rgba(245, 241, 232, 0.55);
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem clamp(1.25rem, 6vw, 4rem) 3rem;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+    }
+    .foot-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .f-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    .f-muted {
+      font-size: 0.9rem;
+      color: rgba(245, 241, 232, 0.55);
+      margin: 0;
+    }
+    .f-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .f-links a {
+      color: rgba(245, 241, 232, 0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .f-links a:hover { color: #c18a3d; }
+    .clause {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(245, 241, 232, 0.1);
+      border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+      margin-bottom: 1.5rem;
+    }
+    .clause p:last-child {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(245, 241, 232, 0.6);
+      max-width: 80ch;
+      margin: 0;
+    }
+    .f-copy {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(245, 241, 232, 0.45);
+    }
+
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img { position: static; max-width: 360px; }
+      .chapter { grid-template-columns: 1fr; gap: 1rem; }
+      .roman { font-size: 4rem; }
+      .forfait-row { grid-template-columns: 1fr; gap: 1rem; }
+      .f-prix { justify-content: flex-start; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .row2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</Base>

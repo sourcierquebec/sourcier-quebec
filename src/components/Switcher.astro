@@ -1,0 +1,89 @@
+---
+interface Props {
+  current: 'a' | 'b' | 'c';
+}
+const { current } = Astro.props;
+const items: Array<{ id: 'a' | 'b' | 'c'; label: string; name: string }> = [
+  { id: 'a', label: 'A', name: 'Cartographique' },
+  { id: 'b', label: 'B', name: 'Éditorial' },
+  { id: 'c', label: 'C', name: 'Carnet' },
+];
+---
+<nav class="switcher" aria-label="Sélecteur de direction design">
+  <a href="/" class="home">← Retour</a>
+  <div class="options">
+    {items.map((item) => (
+      <a
+        href={`/${item.id}/`}
+        class:list={['option', { active: current === item.id }]}
+        aria-current={current === item.id ? 'page' : undefined}
+      >
+        <span class="letter">{item.label}</span>
+        <span class="name">{item.name}</span>
+      </a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .switcher {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(17, 17, 17, 0.92);
+    backdrop-filter: blur(12px);
+    color: #f5f1e8;
+    font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(245, 241, 232, 0.15);
+  }
+  .home {
+    color: rgba(245, 241, 232, 0.7);
+    text-decoration: none;
+    padding: 0.4rem 0.6rem;
+  }
+  .home:hover { color: #f5f1e8; }
+  .options {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .option {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    color: rgba(245, 241, 232, 0.55);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: color 120ms, border-color 120ms, background 120ms;
+  }
+  .option:hover {
+    color: #f5f1e8;
+    border-color: rgba(245, 241, 232, 0.2);
+  }
+  .option.active {
+    color: #f5f1e8;
+    background: rgba(245, 241, 232, 0.08);
+    border-color: rgba(245, 241, 232, 0.35);
+  }
+  .letter {
+    font-weight: 600;
+  }
+  .name {
+    opacity: 0.8;
+  }
+  @media (max-width: 640px) {
+    .name { display: none; }
+    .home { font-size: 0.68rem; }
+  }
+  /* Ensure content below is offset */
+  :global(body) { padding-top: 2.25rem; }
+</style>

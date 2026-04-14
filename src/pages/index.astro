@@ -1,138 +1,236 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const variants = [
+  {
+    id: 'a',
+    letter: 'A',
+    name: 'Cartographique',
+    tagline: 'Planche de géologue · rigueur scientifique',
+    bg: '#ede4d1',
+    fg: '#0e1c3b',
+    accent: '#b3452e',
+    muted: '#f7f3ea',
+    description:
+      'Crédibilité scientifique, grille cadastrale, coordonnées GPS, coupe géologique. Zéro connotation ésotérique.',
+  },
+  {
+    id: 'b',
+    letter: 'B',
+    name: 'Éditorial',
+    tagline: 'Long-form magazine · descente immersive',
+    bg: '#0a0a0b',
+    fg: '#f5f1e8',
+    accent: '#c18a3d',
+    muted: '#6fa8c4',
+    description:
+      'Grandes photos, typographie serif dramatique, storytelling par le scroll. Plus émotionnel, plus mémorable.',
+  },
+  {
+    id: 'c',
+    letter: 'C',
+    name: 'Carnet',
+    tagline: 'Brutaliste artisanal · incarné par Thomas',
+    bg: '#faf8f3',
+    fg: '#111111',
+    accent: '#8b3a1f',
+    muted: '#e8e4d8',
+    description:
+      'Grotesque moderne, chiffres surdimensionnés, annotations manuscrites. Chaleur et savoir-faire.',
+  },
+];
 ---
-<Base title="Sourcier Québec — site en préparation">
+<Base title="Sourcier Québec — 3 directions design">
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+  </Fragment>
+
   <main>
-    <div class="frame">
-      <header>
-        <span class="mark">§ 00 — Chantier</span>
-        <span class="coord">47.3667° N · 70.0333° O</span>
-      </header>
-
-      <h1>
-        Sourcier<br />
-        <em>Québec.</em>
-      </h1>
-
-      <p class="lede">
-        Localisation précise de veines d'eau pour vos projets de forage
-        résidentiels, agricoles et municipaux.
+    <header class="intro">
+      <span class="mark">§ 00 — Sélection de direction design</span>
+      <h1>Sourcier Québec</h1>
+      <p>
+        Trois directions distinctes pour le site de Thomas. Chacune décline
+        l'intégralité du contenu (9 sections). Cliquez pour explorer, comparez
+        sur desktop et mobile, puis tranchez.
       </p>
+    </header>
 
-      <div class="build">
-        <span class="dot"></span>
-        Site en préparation — mise en ligne imminente.
-      </div>
+    <section class="grid">
+      {variants.map((v) => (
+        <a
+          href={`/${v.id}/`}
+          class="card"
+          style={`--bg:${v.bg};--fg:${v.fg};--accent:${v.accent};--muted:${v.muted};`}
+        >
+          <div class="card-inner">
+            <div class="top">
+              <span class="letter">{v.letter}</span>
+              <span class="arrow">→</span>
+            </div>
+            <div class="bottom">
+              <h2>{v.name}</h2>
+              <p class="tagline">{v.tagline}</p>
+              <p class="desc">{v.description}</p>
+              <span class="link">Ouvrir la variante {v.letter}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </section>
 
-      <footer>
-        <a href="mailto:sourcierquebec@gmail.com">sourcierquebec@gmail.com</a>
-        <span>·</span>
-        <a href="tel:+14183566638">1 (418) 356-6638</a>
-        <span>·</span>
-        <span>La Pocatière, QC</span>
-      </footer>
-    </div>
+    <footer class="footer">
+      <span>Sourcier Québec · Thomas · La Pocatière</span>
+      <span>47.3667° N · 70.0333° O</span>
+    </footer>
   </main>
 
   <style>
     :global(html, body) {
       margin: 0;
       padding: 0;
-      background: #ede4d1;
-      color: #0e1c3b;
-      font-family: ui-serif, Georgia, 'Times New Roman', serif;
+      background: #0a0a0b;
+      color: #f5f1e8;
+      font-family: 'Inter', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     main {
       min-height: 100vh;
       min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(14, 28, 59, 0.08) 1px, transparent 0);
-      background-size: 24px 24px;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    .frame {
+    .intro {
       max-width: 720px;
-      width: 100%;
-      border: 1px solid rgba(14, 28, 59, 0.25);
-      padding: clamp(1.5rem, 4vw, 3rem);
-      background: rgba(247, 243, 234, 0.6);
-      backdrop-filter: blur(2px);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(14, 28, 59, 0.65);
-      border-bottom: 1px solid rgba(14, 28, 59, 0.2);
-      padding-bottom: 0.75rem;
-      margin-bottom: 2rem;
-    }
-    h1 {
-      font-size: clamp(3rem, 10vw, 6.5rem);
-      line-height: 0.92;
-      letter-spacing: -0.02em;
-      margin: 0 0 1.5rem;
-      font-weight: 500;
-    }
-    h1 em {
-      font-style: italic;
-      color: #b3452e;
-    }
-    .lede {
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      line-height: 1.55;
-      max-width: 52ch;
-      margin: 0 0 2.5rem;
-      color: rgba(14, 28, 59, 0.82);
-    }
-    .build {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: #0e1c3b;
-      color: #ede4d1;
-      padding: 0.6rem 1rem;
       margin-bottom: 3rem;
     }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #b3452e;
-      animation: pulse 1.8s ease-in-out infinite;
+    .mark {
+      font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 232, 0.55);
+      display: block;
+      margin-bottom: 1rem;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    .intro h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+      font-weight: 500;
     }
-    footer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.75rem;
-      font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace;
-      font-size: 0.78rem;
-      border-top: 1px solid rgba(14, 28, 59, 0.2);
-      padding-top: 1rem;
+    .intro p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(245, 241, 232, 0.78);
+      margin: 0;
     }
-    footer a {
-      color: #0e1c3b;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      display: block;
       text-decoration: none;
-      border-bottom: 1px solid rgba(14, 28, 59, 0.4);
+      color: var(--fg);
+      background: var(--bg);
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(245, 241, 232, 0.1);
+      transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
     }
-    footer a:hover {
-      color: #b3452e;
-      border-bottom-color: #b3452e;
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card-inner {
+      position: absolute;
+      inset: 0;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--fg) 10%, transparent) 1px, transparent 0);
+      background-size: 20px 20px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .letter {
+      font-size: clamp(4rem, 12vw, 7rem);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+    }
+    .arrow {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 1.25rem;
+      opacity: 0.6;
+    }
+    .bottom {
+      position: relative;
+      z-index: 1;
+    }
+    .bottom h2 {
+      font-size: 1.5rem;
+      margin: 0 0 0.25rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .tagline {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+      opacity: 0.65;
+    }
+    .desc {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0 0 1.25rem;
+      opacity: 0.85;
+    }
+    .link {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+    }
+    .footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(245, 241, 232, 0.15);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(245, 241, 232, 0.55);
     }
   </style>
 </Base>

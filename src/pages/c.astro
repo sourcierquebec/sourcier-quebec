@@ -1,0 +1,908 @@
+---
+import Base from '../layouts/Base.astro';
+import Switcher from '../components/Switcher.astro';
+import { site } from '../data/content';
+---
+<Base title={`${site.meta.brand} — Direction C · Carnet`}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@500;600&family=Inter:wght@400;500&display=swap"
+    />
+  </Fragment>
+
+  <Switcher current="c" />
+
+  {/* 01 Hero */}
+  <section class="hero" id="hero">
+    <div class="stamp">Thomas · Sourcier</div>
+    <h1>
+      <span class="small">Le</span>
+      <span class="line1">carnet</span>
+      <span class="line2">d'un sourcier.</span>
+    </h1>
+    <p class="handwritten">« Voilà ce que je fais,<br />et comment. »</p>
+    <p class="lede">{site.hero.accroche}</p>
+    <div class="cta-wrap">
+      <a class="cta" href={site.hero.cta.href}>
+        {site.hero.cta.label}
+        <span class="cta-arrow">→</span>
+      </a>
+      <span class="note-side">pas de garantie — obligation de moyens</span>
+    </div>
+  </section>
+
+  {/* 02 Piliers — 3 cartes post-it */}
+  <section class="piliers" id="piliers">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 01 · Trois piliers</span>
+    </div>
+    <h2 class="section-h2">Pourquoi faire appel<br />à un sourcier.</h2>
+    <div class="cards">
+      {site.piliers.map((p, i) => (
+        <article class="card" style={`--rot:${(i - 1) * 1.2}deg`}>
+          <span class="card-num">№ {p.num}</span>
+          <h3>{p.titre}</h3>
+          <p>{p.texte}</p>
+          <span class="card-stamp">·</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* 03 À Propos */}
+  <section class="about" id="about">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 02 · L'artisan</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-left">
+        <h2 class="section-h2">Dix ans,<br />sur le terrain.</h2>
+        <p class="hw">signé Thomas</p>
+      </div>
+      <div class="about-right">
+        <p class="lead-p">{site.about.intro}</p>
+        <p>{site.about.parcours}</p>
+        <p>{site.about.methode}</p>
+        <div class="marks">
+          {site.about.points.map((pt, i) => (
+            <div class="mark-box">
+              <span class="mark-num">0{i + 1}</span>
+              <h4>{pt.titre}</h4>
+              <p>{pt.texte}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 04 Forfaits — gros chiffres */}
+  <section class="forfaits" id="forfaits">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 03 · Trois forfaits</span>
+    </div>
+    <h2 class="section-h2">Tarifs clairs,<br />pas de surprise.</h2>
+    <div class="forfaits-grid">
+      {site.forfaits.map((f) => (
+        <article class="forfait">
+          <div class="top-row">
+            <h3>{f.nom}</h3>
+          </div>
+          <div class="price-block">
+            <span class="price-num">{f.prix}</span>
+            <span class="price-unit">$ CAD</span>
+          </div>
+          <p class="surface-line">{f.surface}</p>
+          <p class="cible-line">{f.cible}</p>
+          <ul class="inclusions">
+            {f.inclusions.map((inc) => <li><span class="check">✓</span>{inc}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="hw note-hw">☞ les prix peuvent changer — estimation écrite toujours fournie</p>
+  </section>
+
+  {/* 05 Zone */}
+  <section class="zone" id="zone">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 04 · Mon territoire</span>
+    </div>
+    <div class="zone-grid">
+      <div class="zone-left">
+        <h2 class="section-h2">Basé à<br /><u>La Pocatière.</u></h2>
+        <p class="hw-coord">{site.zone.coords}</p>
+      </div>
+      <div class="zone-right">
+        <div class="zone-block">
+          <h4>Régions principales</h4>
+          <ul>
+            {site.zone.regions.map((r) => <li>{r}</li>)}
+          </ul>
+          <p class="muted-line">{site.zone.autre}</p>
+        </div>
+        <div class="zone-block">
+          <h4>Déplacement</h4>
+          <p><strong>Inclus :</strong> {site.zone.rayonInclus}</p>
+          <p><strong>Au-delà :</strong> {site.zone.tarifKm}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 06 FAQ */}
+  <section class="faq" id="faq">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 05 · Questions</span>
+    </div>
+    <h2 class="section-h2">Ce qu'on<br />me demande souvent.</h2>
+    <div class="faq-list">
+      {site.faq.map((item, i) => (
+        <details open={i === 0}>
+          <summary>
+            <span class="q-num">0{i + 1}</span>
+            <span class="q-txt">{item.q}</span>
+            <span class="q-plus">+</span>
+          </summary>
+          <p>{item.r}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  {/* 07 Témoignages */}
+  <section class="temoignages" id="temoignages">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 06 · Retours client</span>
+    </div>
+    <h2 class="section-h2">Ce qu'ils<br />en disent.</h2>
+    <p class="t-intro">{site.temoignages.intro}</p>
+    <div class="avis-grid">
+      {site.temoignages.placeholders.map((t, i) => (
+        <article class="avis" style={`--rot:${(i % 2 === 0 ? -0.8 : 0.8)}deg`}>
+          <p class="avis-text">{t.texte}</p>
+          <p class="avis-author">— {t.auteur}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* 08 Contact */}
+  <section class="contact" id="contact">
+    <div class="section-label">
+      <span class="dash">——</span>
+      <span>Chapitre 07 · Me contacter</span>
+    </div>
+    <h2 class="section-h2">On commence<br />par une question.</h2>
+    <div class="contact-wrap">
+      <form class="form" method="post" action="#">
+        <label><span>Votre nom</span><input type="text" name="nom" required /></label>
+        <label><span>Courriel</span><input type="email" name="email" required /></label>
+        <label><span>Téléphone</span><input type="tel" name="tel" /></label>
+        <label><span>Type de projet</span>
+          <select name="type">
+            <option>Résidentiel</option>
+            <option>Agricole / Grand terrain</option>
+            <option>Municipal</option>
+            <option>Autre</option>
+          </select>
+        </label>
+        <label class="full"><span>Dites-moi tout</span><textarea name="message" rows="5" required></textarea></label>
+        <button type="submit">Envoyer <span>→</span></button>
+      </form>
+      <aside class="coords">
+        <h4>Directement</h4>
+        <p class="addr">{site.contact.adresse}</p>
+        <p class="big-contact"><a href={`tel:${site.contact.telRaw}`}>{site.contact.tel}</a></p>
+        <p class="big-contact"><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+        <p class="hours">{site.contact.horaires}</p>
+      </aside>
+    </div>
+  </section>
+
+  {/* 09 Footer */}
+  <footer class="footer">
+    <div class="foot-main">
+      <div>
+        <p class="brand-big">Sourcier<br />Québec.</p>
+        <p class="hw">— Thomas</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h5>Contact</h5>
+          <p>{site.contact.tel}</p>
+          <p>{site.contact.email}</p>
+          <p class="muted-line">{site.contact.horaires}</p>
+        </div>
+        <div>
+          <h5>Aller à</h5>
+          <a href="#piliers">Les piliers</a>
+          <a href="#forfaits">Forfaits</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="clause-box">
+      <h5>Avis important</h5>
+      <p>{site.legal.clause}</p>
+    </div>
+    <div class="copy-row">
+      <span>© 2026 Sourcier Québec · La Pocatière</span>
+      <span class="hw">fait à la main</span>
+    </div>
+  </footer>
+
+  <style>
+    :global(html, body) {
+      margin: 0;
+      padding: 0;
+      background: #faf8f3;
+      color: #111111;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    :global(section) {
+      padding: clamp(4rem, 10vh, 8rem) clamp(1.25rem, 5vw, 3.5rem);
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #8b3a1f;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .dash {
+      color: #8b3a1f;
+      letter-spacing: -2px;
+    }
+    .section-h2 {
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin: 0 0 3rem;
+      font-weight: 700;
+    }
+    .hw {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #8b3a1f;
+      line-height: 1.2;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding-top: clamp(5rem, 14vh, 10rem);
+    }
+    .stamp {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 0.5rem 0.9rem;
+      border: 1.5px solid #111;
+      margin-bottom: 2rem;
+      transform: rotate(-1deg);
+      background: #faf8f3;
+    }
+    .hero h1 {
+      font-size: clamp(3.5rem, 13vw, 11rem);
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      margin: 0 0 1.5rem;
+      font-weight: 700;
+      text-transform: none;
+    }
+    .hero h1 .small {
+      display: inline-block;
+      font-size: 0.3em;
+      font-weight: 500;
+      vertical-align: top;
+      margin-right: 0.5em;
+      transform: translateY(0.5em);
+    }
+    .hero h1 .line1 {
+      display: block;
+    }
+    .hero h1 .line2 {
+      display: block;
+      color: #8b3a1f;
+      font-style: italic;
+      font-weight: 600;
+    }
+    .handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: #8b3a1f;
+      margin: 0 0 2rem;
+      line-height: 1.1;
+      transform: rotate(-1deg);
+      max-width: 10ch;
+    }
+    .lede {
+      font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+      line-height: 1.55;
+      max-width: 50ch;
+      margin: 0 0 2.5rem;
+      color: rgba(17, 17, 17, 0.8);
+    }
+    .cta-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 1.75rem;
+      background: #111;
+      color: #faf8f3;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 2px solid #111;
+      transition: all 180ms;
+    }
+    .cta:hover {
+      background: #8b3a1f;
+      border-color: #8b3a1f;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #111;
+    }
+    .cta-arrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+    }
+    .note-side {
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: rgba(17, 17, 17, 0.55);
+    }
+
+    /* Piliers */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: #fff;
+      padding: 2rem 1.75rem;
+      border: 2px solid #111;
+      position: relative;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 6px 6px 0 #e8e4d8;
+    }
+    .card:hover {
+      transform: rotate(0) translateY(-4px);
+      box-shadow: 8px 8px 0 #8b3a1f;
+    }
+    .card-num {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8b3a1f;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #8b3a1f;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-size: 1.8rem;
+      margin: 0 0 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      margin: 0;
+      line-height: 1.55;
+      color: rgba(17, 17, 17, 0.8);
+    }
+    .card-stamp {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      color: #8b3a1f;
+      opacity: 0.6;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+    }
+    .about-left .section-h2 { margin-bottom: 0.5rem; }
+    .about-left .hw {
+      display: block;
+      margin-top: 1rem;
+    }
+    .about-right p {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      margin: 0 0 1.25rem;
+      color: rgba(17, 17, 17, 0.82);
+      max-width: 60ch;
+    }
+    .lead-p {
+      font-size: 1.25rem !important;
+      font-weight: 500;
+      padding-left: 1.5rem;
+      border-left: 3px solid #8b3a1f;
+    }
+    .marks {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px dashed rgba(17, 17, 17, 0.2);
+    }
+    .mark-box {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .mark-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #8b3a1f;
+      line-height: 1;
+    }
+    .mark-box h4 {
+      font-size: 1.1rem;
+      margin: 0 0 0.35rem;
+      font-weight: 700;
+    }
+    .mark-box p {
+      margin: 0 !important;
+      font-size: 0.95rem !important;
+    }
+    .mark-box h4, .mark-box p { grid-column: 2; }
+    .mark-box h4 { grid-column: 2; grid-row: 1; }
+    .mark-box > p { grid-row: 2; }
+    .mark-num { grid-row: 1 / 3; }
+
+    /* Forfaits */
+    .forfaits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+    .forfait {
+      background: #fff;
+      border: 2px solid #111;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: transform 200ms;
+    }
+    .forfait:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 #111; }
+    .forfait h3 {
+      font-size: 1.4rem;
+      margin: 0 0 1.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .price-block {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      color: #8b3a1f;
+    }
+    .price-num {
+      font-size: clamp(4.5rem, 9vw, 6.5rem);
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+    }
+    .price-unit {
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .surface-line {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8b3a1f;
+      margin: 0 0 0.35rem;
+      font-weight: 500;
+    }
+    .cible-line {
+      font-style: italic;
+      color: rgba(17, 17, 17, 0.7);
+      margin: 0 0 1.25rem;
+      font-size: 0.95rem;
+    }
+    .inclusions {
+      list-style: none;
+      margin: 0;
+      padding: 1.25rem 0 0;
+      border-top: 1.5px solid #111;
+    }
+    .inclusions li {
+      font-size: 0.92rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: baseline;
+    }
+    .check {
+      color: #8b3a1f;
+      font-weight: 700;
+    }
+    .note-hw {
+      margin-top: 2rem;
+      font-size: 1.35rem !important;
+    }
+
+    /* Zone */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .zone-left u {
+      text-decoration-thickness: 4px;
+      text-decoration-color: #8b3a1f;
+      text-underline-offset: 8px;
+    }
+    .hw-coord {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: rgba(17, 17, 17, 0.5);
+      margin: 1rem 0 0;
+    }
+    .zone-right {
+      display: grid;
+      gap: 2.5rem;
+    }
+    .zone-block {
+      padding: 1.75rem;
+      background: #fff;
+      border: 2px solid #111;
+    }
+    .zone-block h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 1rem;
+      color: #8b3a1f;
+      font-weight: 600;
+    }
+    .zone-block ul {
+      margin: 0 0 1rem;
+      padding: 0;
+      list-style: none;
+    }
+    .zone-block ul li {
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 0.4rem 0;
+      border-bottom: 1.5px dashed rgba(17, 17, 17, 0.25);
+    }
+    .zone-block p {
+      margin: 0 0 0.4rem;
+      line-height: 1.55;
+    }
+    .zone-block strong {
+      color: #8b3a1f;
+      font-weight: 700;
+    }
+    .muted-line {
+      color: rgba(17, 17, 17, 0.6);
+      font-size: 0.92rem;
+      margin-top: 0.75rem !important;
+    }
+
+    /* FAQ */
+    .faq-list details {
+      background: #fff;
+      border: 2px solid #111;
+      margin-bottom: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .faq-list summary {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.25rem;
+      align-items: center;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .q-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #8b3a1f;
+      line-height: 1;
+    }
+    .q-txt {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .q-plus {
+      font-size: 2rem;
+      font-weight: 300;
+      color: #8b3a1f;
+      line-height: 0.8;
+      transition: transform 200ms;
+    }
+    .faq-list details[open] .q-plus {
+      transform: rotate(45deg);
+    }
+    .faq-list details p {
+      margin: 1rem 0 0;
+      padding-top: 1rem;
+      border-top: 1.5px dashed rgba(17, 17, 17, 0.2);
+      line-height: 1.65;
+      color: rgba(17, 17, 17, 0.82);
+      max-width: 70ch;
+    }
+
+    /* Témoignages */
+    .t-intro {
+      max-width: 55ch;
+      margin: 0 0 3rem;
+      color: rgba(17, 17, 17, 0.75);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .avis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .avis {
+      background: #fff;
+      padding: 2rem;
+      border: 2px solid #111;
+      transform: rotate(var(--rot, 0));
+      transition: transform 250ms;
+      position: relative;
+    }
+    .avis::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      font-size: 5rem;
+      line-height: 1;
+      color: #8b3a1f;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+    }
+    .avis:hover { transform: rotate(0); }
+    .avis-text {
+      margin: 1rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+    .avis-author {
+      margin: 0;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8b3a1f;
+      font-weight: 600;
+    }
+
+    /* Contact */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+    }
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      padding: 2rem;
+      background: #fff;
+      border: 2px solid #111;
+    }
+    .form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form label.full { grid-column: 1 / -1; }
+    .form span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      color: #8b3a1f;
+    }
+    .form input, .form select, .form textarea {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 0.9rem;
+      background: #faf8f3;
+      border: 2px solid #111;
+      color: #111;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none;
+      background: #fff;
+      box-shadow: 3px 3px 0 #8b3a1f;
+    }
+    .form button {
+      grid-column: 1 / -1;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1.1rem 1.5rem;
+      background: #111;
+      color: #faf8f3;
+      border: 2px solid #111;
+      cursor: pointer;
+      transition: all 180ms;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .form button:hover {
+      background: #8b3a1f;
+      border-color: #8b3a1f;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #111;
+    }
+    .coords {
+      padding: 2rem;
+      background: #111;
+      color: #faf8f3;
+      border: 2px solid #111;
+    }
+    .coords h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8b3a1f;
+      margin: 0 0 1.25rem;
+      font-weight: 600;
+    }
+    .addr {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0 0 1.5rem;
+      color: rgba(250, 248, 243, 0.85);
+    }
+    .big-contact {
+      margin: 0 0 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .big-contact a {
+      color: #faf8f3;
+      text-decoration: none;
+      border-bottom: 2px solid #8b3a1f;
+    }
+    .big-contact a:hover { color: #e8a078; }
+    .hours {
+      font-size: 0.88rem;
+      color: rgba(250, 248, 243, 0.55);
+      margin: 1rem 0 0;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(250, 248, 243, 0.25);
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1300px;
+      margin: 4rem auto 0;
+      padding: 3rem clamp(1.25rem, 5vw, 3.5rem);
+      background: #111;
+      color: #faf8f3;
+    }
+    .foot-main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px dashed rgba(250, 248, 243, 0.25);
+    }
+    .brand-big {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 0.9;
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+    .foot-main .hw {
+      color: #e8a078;
+      margin-top: 0.75rem;
+      display: block;
+    }
+    .foot-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .foot-cols h5 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8b3a1f;
+      margin: 0 0 1rem;
+    }
+    .foot-cols p, .foot-cols a {
+      display: block;
+      margin: 0 0 0.4rem;
+      color: rgba(250, 248, 243, 0.85);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .foot-cols a:hover { color: #e8a078; }
+    .foot-cols .muted-line { color: rgba(250, 248, 243, 0.5); }
+    .clause-box {
+      padding: 1.5rem 0;
+      border-bottom: 2px dashed rgba(250, 248, 243, 0.25);
+    }
+    .clause-box h5 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8b3a1f;
+      margin: 0 0 0.75rem;
+    }
+    .clause-box p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(250, 248, 243, 0.65);
+      max-width: 85ch;
+    }
+    .copy-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(250, 248, 243, 0.5);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .copy-row .hw { color: #e8a078; font-size: 1.25rem; text-transform: none; }
+
+    @media (max-width: 900px) {
+      .about-grid, .zone-grid, .contact-wrap, .foot-main { grid-template-columns: 1fr; }
+      .foot-cols { grid-template-columns: 1fr 1fr; }
+      .form { grid-template-columns: 1fr; padding: 1.5rem; }
+    }
+  </style>
+</Base>
