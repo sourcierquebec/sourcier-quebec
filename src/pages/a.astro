@@ -9,9 +9,9 @@ import { site } from '../data/content';
       (function() {
         try {
           var saved = localStorage.getItem('palette-a');
-          document.documentElement.dataset.palette = saved || 'a2';
+          document.documentElement.dataset.palette = saved || 'a1';
         } catch (e) {
-          document.documentElement.dataset.palette = 'a2';
+          document.documentElement.dataset.palette = 'a1';
         }
       })();
     </script>
@@ -38,25 +38,35 @@ import { site } from '../data/content';
         </span>
         <span class="pal-label">Forêt</span>
       </button>
-      <button type="button" data-pal="a2" aria-label="Palette Cadastre">
+      <button type="button" data-pal="a2" aria-label="Palette Éditorial">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ecd9a8"></span>
-          <span style="background:#152238"></span>
-          <span style="background:#c99540"></span>
-          <span style="background:#8c2e25"></span>
-          <span style="background:#6b5f42"></span>
+          <span style="background:#0a1f22"></span>
+          <span style="background:#e6d5b4"></span>
+          <span style="background:#2a6a70"></span>
+          <span style="background:#d9923d"></span>
+          <span style="background:#6b8a8e"></span>
         </span>
-        <span class="pal-label">Cadastre</span>
+        <span class="pal-label">Éditorial</span>
       </button>
-      <button type="button" data-pal="a3" aria-label="Palette Atelier">
+      <button type="button" data-pal="a3" aria-label="Palette Marine">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ece4ca"></span>
-          <span style="background:#0f3640"></span>
-          <span style="background:#a8612a"></span>
-          <span style="background:#d4a14b"></span>
-          <span style="background:#6a5e45"></span>
+          <span style="background:#ede2c8"></span>
+          <span style="background:#14284a"></span>
+          <span style="background:#1a4a8c"></span>
+          <span style="background:#c89548"></span>
+          <span style="background:#6a5f42"></span>
         </span>
-        <span class="pal-label">Atelier</span>
+        <span class="pal-label">Marine</span>
+      </button>
+      <button type="button" data-pal="a4" aria-label="Palette Rouille">
+        <span class="pal-chips" aria-hidden="true">
+          <span style="background:#f0e5c8"></span>
+          <span style="background:#1a1510"></span>
+          <span style="background:#b04a28"></span>
+          <span style="background:#a8855a"></span>
+          <span style="background:#6a5242"></span>
+        </span>
+        <span class="pal-label">Rouille</span>
       </button>
     </nav>
 
@@ -279,27 +289,40 @@ import { site } from '../data/content';
 
       <div class="palette-display" data-pal="a2">
         <p class="palette-intro">
-          <strong>Cadastre</strong> — inspiration document officiel québécois. Ivoire chaud, encre navy, sceaux dorés. Pose l'autorité de l'expert.
+          <strong>Éditorial</strong> — palette issue de B (eau teal + bokeh ambré). Abysse profond, brume chaude, oxyde de cuivre. Mode sombre cinématographique appliqué à la structure cartographique.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ecd9a8"></div><span class="sw-name">Ivoire</span><span class="sw-hex">#ECD9A8</span></div>
-          <div class="swatch"><div class="chip" style="background:#152238"></div><span class="sw-name">Encre</span><span class="sw-hex">#152238</span></div>
-          <div class="swatch"><div class="chip" style="background:#c99540"></div><span class="sw-name">Or</span><span class="sw-hex">#C99540</span></div>
-          <div class="swatch"><div class="chip" style="background:#8c2e25"></div><span class="sw-name">Sceau</span><span class="sw-hex">#8C2E25</span></div>
-          <div class="swatch"><div class="chip" style="background:#6b5f42"></div><span class="sw-name">Parchemin</span><span class="sw-hex">#6B5F42</span></div>
+          <div class="swatch"><div class="chip" style="background:#0a1f22"></div><span class="sw-name">Abysse</span><span class="sw-hex">#0A1F22</span></div>
+          <div class="swatch"><div class="chip" style="background:#e6d5b4"></div><span class="sw-name">Brume</span><span class="sw-hex">#E6D5B4</span></div>
+          <div class="swatch"><div class="chip" style="background:#2a6a70"></div><span class="sw-name">Oxyde</span><span class="sw-hex">#2A6A70</span></div>
+          <div class="swatch"><div class="chip" style="background:#d9923d"></div><span class="sw-name">Ambre</span><span class="sw-hex">#D9923D</span></div>
+          <div class="swatch"><div class="chip" style="background:#6b8a8e"></div><span class="sw-name">Brouillard</span><span class="sw-hex">#6B8A8E</span></div>
         </div>
       </div>
 
       <div class="palette-display" data-pal="a3">
         <p class="palette-intro">
-          <strong>Atelier</strong> — inspiration instrument cuivré sur papier (edrin-spahiu + vishal-banik). Teal profond, laiton, vélin. Scientifique artisanal.
+          <strong>Marine</strong> — sable chaud, outremer profond, cobalt pétrole, or vieilli. Accent bleu franc qui porte l'autorité maritime, harmonisé avec le kraft.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ece4ca"></div><span class="sw-name">Vélin</span><span class="sw-hex">#ECE4CA</span></div>
-          <div class="swatch"><div class="chip" style="background:#0f3640"></div><span class="sw-name">Teal</span><span class="sw-hex">#0F3640</span></div>
-          <div class="swatch"><div class="chip" style="background:#a8612a"></div><span class="sw-name">Cuivre</span><span class="sw-hex">#A8612A</span></div>
-          <div class="swatch"><div class="chip" style="background:#d4a14b"></div><span class="sw-name">Laiton</span><span class="sw-hex">#D4A14B</span></div>
-          <div class="swatch"><div class="chip" style="background:#6a5e45"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6A5E45</span></div>
+          <div class="swatch"><div class="chip" style="background:#ede2c8"></div><span class="sw-name">Sable</span><span class="sw-hex">#EDE2C8</span></div>
+          <div class="swatch"><div class="chip" style="background:#14284a"></div><span class="sw-name">Outremer</span><span class="sw-hex">#14284A</span></div>
+          <div class="swatch"><div class="chip" style="background:#1a4a8c"></div><span class="sw-name">Cobalt</span><span class="sw-hex">#1A4A8C</span></div>
+          <div class="swatch"><div class="chip" style="background:#c89548"></div><span class="sw-name">Or</span><span class="sw-hex">#C89548</span></div>
+          <div class="swatch"><div class="chip" style="background:#6a5f42"></div><span class="sw-name">Galet</span><span class="sw-hex">#6A5F42</span></div>
+        </div>
+      </div>
+
+      <div class="palette-display" data-pal="a4">
+        <p class="palette-intro">
+          <strong>Rouille</strong> — crème chaude, charbon profond, rouille terre cuite, tan chamois. Accents chauds qui évoquent le fer, la terre et le temps qui passe. Harmonie monochrome chaude.
+        </p>
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#f0e5c8"></div><span class="sw-name">Crème</span><span class="sw-hex">#F0E5C8</span></div>
+          <div class="swatch"><div class="chip" style="background:#1a1510"></div><span class="sw-name">Charbon</span><span class="sw-hex">#1A1510</span></div>
+          <div class="swatch"><div class="chip" style="background:#b04a28"></div><span class="sw-name">Rouille</span><span class="sw-hex">#B04A28</span></div>
+          <div class="swatch"><div class="chip" style="background:#a8855a"></div><span class="sw-name">Tan</span><span class="sw-hex">#A8855A</span></div>
+          <div class="swatch"><div class="chip" style="background:#6a5242"></div><span class="sw-name">Pierre</span><span class="sw-hex">#6A5242</span></div>
         </div>
       </div>
     </section>
@@ -341,7 +364,7 @@ import { site } from '../data/content';
       buttons.forEach(function (b) {
         b.addEventListener('click', function () { setActive(b.dataset.pal); });
       });
-      setActive(root.dataset.palette || 'a2');
+      setActive(root.dataset.palette || 'a1');
     })();
   </script>
 
@@ -356,22 +379,37 @@ import { site } from '../data/content';
       --card-rgb: 240, 232, 204;
     }
     :root[data-palette="a2"] {
-      --bg: #ecd9a8;
-      --fg: #152238;
-      --fg-rgb: 21, 34, 56;
-      --accent: #c99540;
-      --accent2: #8c2e25;
-      --card: #f3e4b8;
-      --card-rgb: 243, 228, 184;
+      --bg: #0a1f22;
+      --fg: #e6d5b4;
+      --fg-rgb: 230, 213, 180;
+      --accent: #d9923d;
+      --accent2: #2a6a70;
+      --card: #0e262b;
+      --card-rgb: 14, 38, 43;
     }
     :root[data-palette="a3"] {
-      --bg: #ece4ca;
-      --fg: #0f3640;
-      --fg-rgb: 15, 54, 64;
-      --accent: #a8612a;
-      --accent2: #d4a14b;
-      --card: #f4ecd0;
-      --card-rgb: 244, 236, 208;
+      --bg: #ede2c8;
+      --fg: #14284a;
+      --fg-rgb: 20, 40, 74;
+      --accent: #1a4a8c;
+      --accent2: #c89548;
+      --card: #f3e8ce;
+      --card-rgb: 243, 232, 206;
+    }
+    :root[data-palette="a4"] {
+      --bg: #f0e5c8;
+      --fg: #1a1510;
+      --fg-rgb: 26, 21, 16;
+      --accent: #b04a28;
+      --accent2: #a8855a;
+      --card: #f5eace;
+      --card-rgb: 245, 234, 206;
+    }
+
+    /* Override pour le portrait en mode sombre (Éditorial) */
+    :root[data-palette="a2"] .p-frame img {
+      mix-blend-mode: normal;
+      filter: grayscale(1) contrast(1.12) brightness(1.05);
     }
 
     :global(html, body) {
@@ -878,7 +916,8 @@ import { site } from '../data/content';
     .palette-display { display: none; }
     :root[data-palette="a1"] .palette-display[data-pal="a1"],
     :root[data-palette="a2"] .palette-display[data-pal="a2"],
-    :root[data-palette="a3"] .palette-display[data-pal="a3"] {
+    :root[data-palette="a3"] .palette-display[data-pal="a3"],
+    :root[data-palette="a4"] .palette-display[data-pal="a4"] {
       display: block;
     }
     .palette-intro {

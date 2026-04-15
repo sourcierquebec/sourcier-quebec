@@ -38,25 +38,35 @@ import { site } from '../data/content';
         </span>
         <span class="pal-label">Océan</span>
       </button>
-      <button type="button" data-pal="c2" aria-label="Palette Sous-bois">
+      <button type="button" data-pal="c2" aria-label="Palette Éditorial">
+        <span class="pal-chips" aria-hidden="true">
+          <span style="background:#0a1f22"></span>
+          <span style="background:#e6d5b4"></span>
+          <span style="background:#2a6a70"></span>
+          <span style="background:#d9923d"></span>
+          <span style="background:#6b8a8e"></span>
+        </span>
+        <span class="pal-label">Éditorial</span>
+      </button>
+      <button type="button" data-pal="c3" aria-label="Palette Émeraude">
         <span class="pal-chips" aria-hidden="true">
           <span style="background:#ffffff;outline:1px solid #e5e5e5;outline-offset:-1px"></span>
-          <span style="background:#141414"></span>
-          <span style="background:#047857"></span>
-          <span style="background:#c2410c"></span>
+          <span style="background:#0a0a0a"></span>
+          <span style="background:#059669"></span>
+          <span style="background:#fb7185"></span>
           <span style="background:#6b6b6b"></span>
         </span>
-        <span class="pal-label">Sous-bois</span>
+        <span class="pal-label">Émeraude</span>
       </button>
-      <button type="button" data-pal="c3" aria-label="Palette Crépuscule">
+      <button type="button" data-pal="c4" aria-label="Palette Outremer">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#fafaf7;outline:1px solid #e8e4d9;outline-offset:-1px"></span>
+          <span style="background:#ffffff;outline:1px solid #e5e5e5;outline-offset:-1px"></span>
           <span style="background:#0a0a0a"></span>
-          <span style="background:#7c3aed"></span>
+          <span style="background:#1e40af"></span>
           <span style="background:#d97706"></span>
-          <span style="background:#737373"></span>
+          <span style="background:#6b6b6b"></span>
         </span>
-        <span class="pal-label">Crépuscule</span>
+        <span class="pal-label">Outremer</span>
       </button>
     </nav>
 
@@ -260,27 +270,40 @@ import { site } from '../data/content';
 
       <div class="palette-display" data-pal="c2">
         <p class="intro">
-          <strong>Sous-bois</strong> — émeraude et terracotta. Ancré dans la terre, chaleureux sans tomber dans le rustique.
+          <strong>Éditorial</strong> — palette issue de B (eau teal + bokeh ambré). Abysse profond, brume chaude, cuivre oxydé. Mode sombre cinématographique sur structure minimaliste.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
-          <div class="swatch"><div class="chip" style="background:#141414"></div><span class="sw-name">Encre</span><span class="sw-hex">#141414</span></div>
-          <div class="swatch"><div class="chip" style="background:#047857"></div><span class="sw-name">Émeraude</span><span class="sw-hex">#047857</span></div>
-          <div class="swatch"><div class="chip" style="background:#c2410c"></div><span class="sw-name">Terracotta</span><span class="sw-hex">#C2410C</span></div>
-          <div class="swatch"><div class="chip" style="background:#6b6b6b"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6B6B6B</span></div>
+          <div class="swatch"><div class="chip" style="background:#0a1f22"></div><span class="sw-name">Abysse</span><span class="sw-hex">#0A1F22</span></div>
+          <div class="swatch"><div class="chip" style="background:#e6d5b4"></div><span class="sw-name">Brume</span><span class="sw-hex">#E6D5B4</span></div>
+          <div class="swatch"><div class="chip" style="background:#2a6a70"></div><span class="sw-name">Oxyde</span><span class="sw-hex">#2A6A70</span></div>
+          <div class="swatch"><div class="chip" style="background:#d9923d"></div><span class="sw-name">Ambre</span><span class="sw-hex">#D9923D</span></div>
+          <div class="swatch"><div class="chip" style="background:#6b8a8e"></div><span class="sw-name">Brouillard</span><span class="sw-hex">#6B8A8E</span></div>
         </div>
       </div>
 
       <div class="palette-display" data-pal="c3">
         <p class="intro">
-          <strong>Crépuscule</strong> — violet profond et ambre saturé. Hors des conventions, un ton artisan-artiste, chaud et contrasté.
+          <strong>Émeraude</strong> — émeraude franc et rose corail. Duo frais et vivant, avec un contraste végétal/charnel qui accompagne naturellement le blanc pur.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#fafaf7;border:1px solid #e8e4d9"></div><span class="sw-name">Papyrus</span><span class="sw-hex">#FAFAF7</span></div>
+          <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
           <div class="swatch"><div class="chip" style="background:#0a0a0a"></div><span class="sw-name">Encre</span><span class="sw-hex">#0A0A0A</span></div>
-          <div class="swatch"><div class="chip" style="background:#7c3aed"></div><span class="sw-name">Violet</span><span class="sw-hex">#7C3AED</span></div>
-          <div class="swatch"><div class="chip" style="background:#d97706"></div><span class="sw-name">Ambre</span><span class="sw-hex">#D97706</span></div>
-          <div class="swatch"><div class="chip" style="background:#737373"></div><span class="sw-name">Graphite</span><span class="sw-hex">#737373</span></div>
+          <div class="swatch"><div class="chip" style="background:#059669"></div><span class="sw-name">Émeraude</span><span class="sw-hex">#059669</span></div>
+          <div class="swatch"><div class="chip" style="background:#fb7185"></div><span class="sw-name">Rose</span><span class="sw-hex">#FB7185</span></div>
+          <div class="swatch"><div class="chip" style="background:#6b6b6b"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6B6B6B</span></div>
+        </div>
+      </div>
+
+      <div class="palette-display" data-pal="c4">
+        <p class="intro">
+          <strong>Outremer</strong> — bleu outremer profond et saffron chaud. Accent classique magazine, harmonieux et chaleureux, contraste cool/warm équilibré.
+        </p>
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
+          <div class="swatch"><div class="chip" style="background:#0a0a0a"></div><span class="sw-name">Encre</span><span class="sw-hex">#0A0A0A</span></div>
+          <div class="swatch"><div class="chip" style="background:#1e40af"></div><span class="sw-name">Outremer</span><span class="sw-hex">#1E40AF</span></div>
+          <div class="swatch"><div class="chip" style="background:#d97706"></div><span class="sw-name">Saffron</span><span class="sw-hex">#D97706</span></div>
+          <div class="swatch"><div class="chip" style="background:#6b6b6b"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6B6B6B</span></div>
         </div>
       </div>
     </section>
@@ -345,24 +368,34 @@ import { site } from '../data/content';
       --lead-bg: #fafafa;
     }
     :root[data-palette="c2"] {
-      --bg: #ffffff;
-      --fg: #141414;
-      --fg-rgb: 20, 20, 20;
-      --accent: #047857;
-      --accent2: #c2410c;
-      --muted: #6b6b6b;
-      --border: #e5e5e5;
-      --lead-bg: #f9fafa;
+      --bg: #0a1f22;
+      --fg: #e6d5b4;
+      --fg-rgb: 230, 213, 180;
+      --accent: #d9923d;
+      --accent2: #2a6a70;
+      --muted: #6b8a8e;
+      --border: rgba(230, 213, 180, 0.18);
+      --lead-bg: #0e262b;
     }
     :root[data-palette="c3"] {
-      --bg: #fafaf7;
+      --bg: #ffffff;
       --fg: #0a0a0a;
       --fg-rgb: 10, 10, 10;
-      --accent: #7c3aed;
+      --accent: #059669;
+      --accent2: #fb7185;
+      --muted: #6b6b6b;
+      --border: #e5e5e5;
+      --lead-bg: #fafafa;
+    }
+    :root[data-palette="c4"] {
+      --bg: #ffffff;
+      --fg: #0a0a0a;
+      --fg-rgb: 10, 10, 10;
+      --accent: #1e40af;
       --accent2: #d97706;
-      --muted: #737373;
-      --border: #e8e4d9;
-      --lead-bg: #f5f3ed;
+      --muted: #6b6b6b;
+      --border: #e5e5e5;
+      --lead-bg: #fafafa;
     }
 
     :global(html, body) {
@@ -888,8 +921,14 @@ import { site } from '../data/content';
     .palette-display { display: none; }
     :root[data-palette="c1"] .palette-display[data-pal="c1"],
     :root[data-palette="c2"] .palette-display[data-pal="c2"],
-    :root[data-palette="c3"] .palette-display[data-pal="c3"] {
+    :root[data-palette="c3"] .palette-display[data-pal="c3"],
+    :root[data-palette="c4"] .palette-display[data-pal="c4"] {
       display: block;
+    }
+
+    /* Override pour le portrait en mode sombre (Éditorial) */
+    :root[data-palette="c2"] .portrait-col img {
+      filter: grayscale(1) contrast(1.1) brightness(1.1);
     }
     .palette-display .intro {
       max-width: 62ch;
