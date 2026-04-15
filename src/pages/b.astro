@@ -1,12 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import Switcher from '../components/Switcher.astro';
+import PaletteDock from '../components/PaletteDock.astro';
 import { site } from '../data/content';
+import '../styles/palettes.css';
 
 const romans = ['I', 'II', 'III'];
 ---
 <Base title={`${site.meta.brand} — Direction B · Éditorial`}>
   <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('palette-b');
+          document.documentElement.dataset.palette = saved || 'editorial';
+        } catch (e) {
+          document.documentElement.dataset.palette = 'editorial';
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,6 +28,7 @@ const romans = ['I', 'II', 'III'];
   </Fragment>
 
   <Switcher current="b" />
+  <PaletteDock storageKey="palette-b" defaultPalette="editorial" />
 
   {/* 01 Hero — full-viewport */}
   <section class="hero" id="hero">
@@ -187,20 +200,6 @@ const romans = ['I', 'II', 'III'];
     </div>
   </section>
 
-  <section class="palette-strip" id="palette">
-    <h2 class="section-title">Palette<br /><em>dérivée.</em></h2>
-    <p class="palette-intro">
-      Inspiration : eau teal et bokeh ambré (vishal-banik). Tons tirés des profondeurs et des reflets chauds.
-    </p>
-    <div class="swatches">
-      <div class="swatch"><div class="chip" style="background:#0a1f22"></div><span class="sw-name">Abysse</span><span class="sw-hex">#0A1F22</span></div>
-      <div class="swatch"><div class="chip" style="background:#e6d5b4"></div><span class="sw-name">Brume</span><span class="sw-hex">#E6D5B4</span></div>
-      <div class="swatch"><div class="chip" style="background:#2a6a70"></div><span class="sw-name">Oxyde</span><span class="sw-hex">#2A6A70</span></div>
-      <div class="swatch"><div class="chip" style="background:#d9923d"></div><span class="sw-name">Ambre</span><span class="sw-hex">#D9923D</span></div>
-      <div class="swatch"><div class="chip" style="background:#6b8a8e"></div><span class="sw-name">Brouillard</span><span class="sw-hex">#6B8A8E</span></div>
-    </div>
-  </section>
-
   {/* 09 Footer */}
   <footer class="footer">
     <div class="foot-top">
@@ -229,11 +228,12 @@ const romans = ['I', 'II', 'III'];
     :global(html, body) {
       margin: 0;
       padding: 0;
-      background: #0a1f22;
-      color: #e6d5b4;
+      background: var(--bg);
+      color: var(--fg);
       font-family: 'Inter', system-ui, sans-serif;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
+      transition: background 350ms ease, color 350ms ease;
     }
     :global(section) {
       padding: clamp(5rem, 12vh, 10rem) clamp(1.25rem, 6vw, 4rem);
@@ -245,7 +245,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: #d9923d;
+      color: var(--accent);
       margin: 0 0 1.5rem;
       font-weight: 500;
     }
@@ -260,7 +260,7 @@ const romans = ['I', 'II', 'III'];
     }
     .section-title em {
       font-style: italic;
-      color: #d9923d;
+      color: var(--accent);
     }
 
     /* Hero */
@@ -277,9 +277,9 @@ const romans = ['I', 'II', 'III'];
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 70% 40%, rgba(42, 106, 112, 0.12), transparent 60%),
-        radial-gradient(ellipse at 20% 80%, rgba(217, 146, 61, 0.08), transparent 50%),
-        linear-gradient(180deg, #0a1f22 0%, #0d232a 60%, #102a32 100%);
+        radial-gradient(ellipse at 70% 40%, rgba(var(--accent2-rgb), 0.12), transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(var(--accent-rgb), 0.08), transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, var(--card) 100%);
       z-index: 0;
     }
     .hero-bg::after {
@@ -290,8 +290,8 @@ const romans = ['I', 'II', 'III'];
         180deg,
         transparent 0,
         transparent 200px,
-        rgba(230, 213, 180, 0.04) 200px,
-        rgba(230, 213, 180, 0.04) 201px
+        rgba(var(--fg-rgb), 0.04) 200px,
+        rgba(var(--fg-rgb), 0.04) 201px
       );
     }
     .hero-content {
@@ -304,7 +304,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.22em;
-      color: #2a6a70;
+      color: var(--accent2);
       margin-bottom: 2rem;
       font-weight: 500;
     }
@@ -318,28 +318,28 @@ const romans = ['I', 'II', 'III'];
     }
     .hero h1 em {
       font-style: italic;
-      color: #d9923d;
+      color: var(--accent);
     }
     .lede {
       font-size: clamp(1.15rem, 1.8vw, 1.4rem);
       line-height: 1.55;
       max-width: 54ch;
       margin: 0 0 2.5rem;
-      color: rgba(230, 213, 180, 0.78);
+      color: rgba(var(--fg-rgb), 0.78);
     }
     .actions { margin-bottom: 4rem; }
     .cta {
       display: inline-block;
       padding: 1rem 2rem;
-      background: #d9923d;
-      color: #0a1f22;
+      background: var(--accent);
+      color: var(--bg);
       text-decoration: none;
       font-weight: 600;
       letter-spacing: 0.02em;
       transition: transform 200ms, background 200ms;
     }
     .cta:hover {
-      background: #e6a34a;
+      background: var(--accent-hover);
       transform: translateY(-2px);
     }
     .scroll-hint {
@@ -349,7 +349,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: rgba(230, 213, 180, 0.45);
+      color: rgba(var(--fg-rgb), 0.45);
     }
     .scroll-hint .arrow {
       font-size: 1rem;
@@ -372,7 +372,7 @@ const romans = ['I', 'II', 'III'];
       gap: 3rem;
       align-items: start;
       padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(230, 213, 180, 0.1);
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.1);
     }
     .chapter:last-child { border-bottom: none; }
     .roman {
@@ -381,7 +381,7 @@ const romans = ['I', 'II', 'III'];
       font-style: italic;
       font-weight: 400;
       line-height: 0.85;
-      color: #d9923d;
+      color: var(--accent);
       opacity: 0.8;
     }
     .chapter h3 {
@@ -394,7 +394,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 1.1rem;
       line-height: 1.65;
       max-width: 60ch;
-      color: rgba(230, 213, 180, 0.78);
+      color: rgba(var(--fg-rgb), 0.78);
       margin: 0;
     }
 
@@ -420,7 +420,7 @@ const romans = ['I', 'II', 'III'];
       width: 100%;
       aspect-ratio: 3 / 4;
       overflow: hidden;
-      border: 1px solid rgba(230, 213, 180, 0.15);
+      border: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .about-img-frame img {
       position: absolute;
@@ -445,7 +445,7 @@ const romans = ['I', 'II', 'III'];
       position: absolute;
       width: 22px;
       height: 22px;
-      border: 1px solid #d9923d;
+      border: 1px solid var(--accent);
       z-index: 1;
     }
     .about-img::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
@@ -455,13 +455,13 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
       text-align: center;
     }
     .about-text p {
       font-size: 1.08rem;
       line-height: 1.7;
-      color: rgba(230, 213, 180, 0.8);
+      color: rgba(var(--fg-rgb), 0.8);
       max-width: 60ch;
       margin: 0 0 1.25rem;
     }
@@ -469,8 +469,8 @@ const romans = ['I', 'II', 'III'];
       font-family: 'Playfair Display', serif !important;
       font-size: 1.5rem !important;
       font-style: italic;
-      color: #e6d5b4 !important;
-      border-left: 2px solid #d9923d;
+      color: var(--fg) !important;
+      border-left: 2px solid var(--accent);
       padding-left: 1.5rem;
     }
     .points {
@@ -478,14 +478,14 @@ const romans = ['I', 'II', 'III'];
       display: grid;
       gap: 1.5rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(230, 213, 180, 0.1);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.1);
     }
     .point h4 {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
       margin: 0 0 0.5rem;
       font-weight: 500;
-      color: #d9923d;
+      color: var(--accent);
     }
     .point p {
       margin: 0 !important;
@@ -504,13 +504,13 @@ const romans = ['I', 'II', 'III'];
       gap: 2.5rem;
       align-items: center;
       padding: 2.5rem 0;
-      border-top: 1px solid rgba(230, 213, 180, 0.15);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
     }
-    .forfait-row:last-child { border-bottom: 1px solid rgba(230, 213, 180, 0.15); }
+    .forfait-row:last-child { border-bottom: 1px solid rgba(var(--fg-rgb), 0.15); }
     .f-num {
       font-size: 0.7rem;
       letter-spacing: 0.15em;
-      color: #d9923d;
+      color: var(--accent);
       text-transform: uppercase;
       font-weight: 600;
     }
@@ -524,7 +524,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
       margin: 0 0 1rem;
     }
     .forfait-row ul {
@@ -537,7 +537,7 @@ const romans = ['I', 'II', 'III'];
     }
     .forfait-row ul li {
       font-size: 0.92rem;
-      color: rgba(230, 213, 180, 0.7);
+      color: rgba(var(--fg-rgb), 0.7);
       position: relative;
       padding-left: 0.9rem;
     }
@@ -545,13 +545,13 @@ const romans = ['I', 'II', 'III'];
       content: '·';
       position: absolute;
       left: 0;
-      color: #d9923d;
+      color: var(--accent);
     }
     .f-prix {
       font-family: 'Playfair Display', serif;
       display: flex;
       align-items: baseline;
-      color: #d9923d;
+      color: var(--accent);
     }
     .big-num {
       font-size: clamp(3.5rem, 7vw, 6rem);
@@ -566,7 +566,7 @@ const romans = ['I', 'II', 'III'];
     .forfait-note {
       margin-top: 1.5rem;
       font-size: 0.85rem;
-      color: rgba(230, 213, 180, 0.5);
+      color: rgba(var(--fg-rgb), 0.5);
       font-style: italic;
     }
 
@@ -576,13 +576,13 @@ const romans = ['I', 'II', 'III'];
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(230, 213, 180, 0.15);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .zone-label {
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: #2a6a70;
+      color: var(--accent2);
       margin: 0 0 1rem;
     }
     .zone-city {
@@ -593,7 +593,7 @@ const romans = ['I', 'II', 'III'];
     }
     .zone-coord {
       font-size: 0.85rem;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
       margin: 0;
     }
     .zone-region {
@@ -603,12 +603,12 @@ const romans = ['I', 'II', 'III'];
       font-style: italic;
     }
     .zone-muted, .zone-frais p {
-      color: rgba(230, 213, 180, 0.75);
+      color: rgba(var(--fg-rgb), 0.75);
       line-height: 1.55;
       margin: 0 0 0.5rem;
     }
     .zone-frais em {
-      color: #d9923d;
+      color: var(--accent);
       font-style: normal;
       font-weight: 500;
     }
@@ -616,10 +616,10 @@ const romans = ['I', 'II', 'III'];
     /* FAQ */
     .faq-list details {
       padding: 2rem 0;
-      border-top: 1px solid rgba(230, 213, 180, 0.15);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .faq-list details:last-child {
-      border-bottom: 1px solid rgba(230, 213, 180, 0.15);
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .faq-list summary {
       display: grid;
@@ -633,26 +633,26 @@ const romans = ['I', 'II', 'III'];
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
       font-style: italic;
-      color: #d9923d;
+      color: var(--accent);
     }
     .q-text {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.3rem, 2vw, 1.7rem);
       font-weight: 500;
-      color: #e6d5b4;
+      color: var(--fg);
     }
     .faq-list details p {
       margin: 1.5rem 0 0 calc(1.3rem + 2rem);
       font-size: 1.05rem;
       line-height: 1.7;
-      color: rgba(230, 213, 180, 0.78);
+      color: rgba(var(--fg-rgb), 0.78);
       max-width: 70ch;
     }
 
     /* Témoignages */
     .t-intro {
       max-width: 60ch;
-      color: rgba(230, 213, 180, 0.7);
+      color: rgba(var(--fg-rgb), 0.7);
       margin: 0 0 3rem;
       font-size: 1.05rem;
       line-height: 1.65;
@@ -665,7 +665,7 @@ const romans = ['I', 'II', 'III'];
     .t-grid figure {
       margin: 0;
       padding: 2rem 0;
-      border-top: 1px solid rgba(230, 213, 180, 0.2);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.2);
     }
     .t-grid blockquote {
       font-family: 'Playfair Display', serif;
@@ -673,21 +673,21 @@ const romans = ['I', 'II', 'III'];
       font-style: italic;
       line-height: 1.5;
       margin: 0 0 1.5rem;
-      color: #e6d5b4;
+      color: var(--fg);
     }
     .t-grid blockquote::before {
       content: '« ';
-      color: #d9923d;
+      color: var(--accent);
     }
     .t-grid blockquote::after {
       content: ' »';
-      color: #d9923d;
+      color: var(--accent);
     }
     .t-grid figcaption {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
     }
 
     /* Contact */
@@ -696,7 +696,7 @@ const romans = ['I', 'II', 'III'];
       grid-template-columns: 2fr 1fr;
       gap: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(230, 213, 180, 0.15);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .form {
       display: flex;
@@ -717,28 +717,28 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
     }
     .form input, .form select, .form textarea {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(230, 213, 180, 0.3);
-      color: #e6d5b4;
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.3);
+      color: var(--fg);
       padding: 0.75rem 0;
     }
     .form input:focus, .form select:focus, .form textarea:focus {
       outline: none;
-      border-bottom-color: #d9923d;
+      border-bottom-color: var(--accent);
     }
-    .form select option { color: #0a1f22; }
+    .form select option { color: var(--bg); }
     .form button {
       align-self: flex-start;
       margin-top: 1rem;
       padding: 1rem 2rem;
-      background: #d9923d;
-      color: #0a1f22;
+      background: var(--accent);
+      color: var(--bg);
       border: none;
       font-weight: 600;
       font-size: 0.9rem;
@@ -746,68 +746,27 @@ const romans = ['I', 'II', 'III'];
       transition: background 200ms, transform 200ms;
     }
     .form button:hover {
-      background: #e6a34a;
+      background: var(--accent-hover);
       transform: translateY(-2px);
     }
     .coords {
       padding: 2rem;
-      background: rgba(230, 213, 180, 0.03);
-      border-left: 2px solid #d9923d;
+      background: rgba(var(--fg-rgb), 0.03);
+      border-left: 2px solid var(--accent);
     }
     .coord-line {
       margin: 0 0 0.75rem;
       line-height: 1.55;
     }
     .coord-line a {
-      color: #e6d5b4;
+      color: var(--fg);
       text-decoration: none;
-      border-bottom: 1px solid #d9923d;
+      border-bottom: 1px solid var(--accent);
     }
     .coord-line.muted {
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
       font-size: 0.9rem;
       margin-top: 1rem;
-    }
-
-    /* Palette strip — hairline éditoriale */
-    .palette-intro {
-      font-size: 1.05rem;
-      line-height: 1.55;
-      color: rgba(230, 213, 180, 0.75);
-      max-width: 60ch;
-      margin: 0 0 3rem;
-    }
-    .swatches {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(230, 213, 180, 0.2);
-    }
-    .swatch {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .chip {
-      width: 100%;
-      aspect-ratio: 1 / 1.1;
-      border: 1px solid rgba(230, 213, 180, 0.15);
-    }
-    .sw-name {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.25rem;
-      color: #d9923d;
-    }
-    .sw-hex {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      color: rgba(230, 213, 180, 0.55);
-      text-transform: uppercase;
-    }
-    @media (max-width: 700px) {
-      .swatches { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
     }
 
     /* Footer */
@@ -815,7 +774,7 @@ const romans = ['I', 'II', 'III'];
       max-width: 1400px;
       margin: 0 auto;
       padding: 4rem clamp(1.25rem, 6vw, 4rem) 3rem;
-      border-top: 1px solid rgba(230, 213, 180, 0.15);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
     }
     .foot-top {
       display: flex;
@@ -832,7 +791,7 @@ const romans = ['I', 'II', 'III'];
     }
     .f-muted {
       font-size: 0.9rem;
-      color: rgba(230, 213, 180, 0.55);
+      color: rgba(var(--fg-rgb), 0.55);
       margin: 0;
     }
     .f-links {
@@ -840,23 +799,23 @@ const romans = ['I', 'II', 'III'];
       gap: 2rem;
     }
     .f-links a {
-      color: rgba(230, 213, 180, 0.7);
+      color: rgba(var(--fg-rgb), 0.7);
       text-decoration: none;
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
-    .f-links a:hover { color: #d9923d; }
+    .f-links a:hover { color: var(--accent); }
     .clause {
       padding: 2rem 0;
-      border-top: 1px solid rgba(230, 213, 180, 0.1);
-      border-bottom: 1px solid rgba(230, 213, 180, 0.1);
+      border-top: 1px solid rgba(var(--fg-rgb), 0.1);
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.1);
       margin-bottom: 1.5rem;
     }
     .clause p:last-child {
       font-size: 0.85rem;
       line-height: 1.6;
-      color: rgba(230, 213, 180, 0.6);
+      color: rgba(var(--fg-rgb), 0.6);
       max-width: 80ch;
       margin: 0;
     }
@@ -866,7 +825,7 @@ const romans = ['I', 'II', 'III'];
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: rgba(230, 213, 180, 0.45);
+      color: rgba(var(--fg-rgb), 0.45);
     }
 
     @media (max-width: 900px) {

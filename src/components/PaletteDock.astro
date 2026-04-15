@@ -1,0 +1,203 @@
+---
+interface Props {
+  storageKey?: string;
+  defaultPalette?: string;
+}
+const { storageKey = 'palette', defaultPalette = 'editorial' } = Astro.props;
+
+const palettes = [
+  { id: 'editorial', label: 'Éditorial', chips: ['#0a1f22', '#e6d5b4', '#d9923d', '#2a6a70'] },
+  { id: 'marine', label: 'Marine', chips: ['#0a1528', '#e8ecf2', '#3b82f6', '#fbbf24'] },
+  { id: 'rouille', label: 'Rouille', chips: ['#1a120a', '#f0e5d0', '#ea580c', '#d4a574'] },
+  { id: 'ocean-clair', label: 'Océan claire', chips: ['#dce8ec', '#0a0a0a', '#0891b2', '#ef4444'] },
+  { id: 'ocean-fonce', label: 'Océan foncée', chips: ['#061018', '#e6f0f4', '#06b6d4', '#f87171'] },
+  { id: 'emeraude-clair', label: 'Émeraude claire', chips: ['#dfe8df', '#0a0a0a', '#059669', '#fb7185'] },
+  { id: 'emeraude-fonce', label: 'Émeraude foncée', chips: ['#061810', '#e8f0ea', '#10b981', '#fca5a5'] },
+];
+---
+
+<nav class="pal-dock" data-open="false" data-storage-key={storageKey} data-default-palette={defaultPalette} aria-label="Choisir une palette de couleurs">
+  <button class="pal-dock-trigger" type="button" aria-expanded="false" aria-controls="pal-dock-menu">
+    <span class="pal-dock-dot" aria-hidden="true"></span>
+    <span class="pal-dock-k">Palette</span>
+  </button>
+  <div class="pal-dock-menu" id="pal-dock-menu" role="menu">
+    {palettes.map((p) => (
+      <button type="button" data-pal={p.id} role="menuitem" aria-label={`Palette ${p.label}`}>
+        <span class="pal-chips" aria-hidden="true">
+          {p.chips.map((c) => <span style={`background:${c}`}></span>)}
+        </span>
+        <span class="pal-label">{p.label}</span>
+      </button>
+    ))}
+  </div>
+</nav>
+
+<script is:inline>
+  (function () {
+    var dock = document.querySelector('.pal-dock');
+    if (!dock) return;
+    var storageKey = dock.dataset.storageKey || 'palette';
+    var defaultPalette = dock.dataset.defaultPalette || 'editorial';
+    var trigger = dock.querySelector('.pal-dock-trigger');
+    var buttons = dock.querySelectorAll('.pal-dock-menu button');
+    var root = document.documentElement;
+
+    function setActive(pal) {
+      buttons.forEach(function (b) {
+        b.classList.toggle('active', b.dataset.pal === pal);
+      });
+    }
+    function setOpen(open) {
+      dock.setAttribute('data-open', open ? 'true' : 'false');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setOpen(dock.getAttribute('data-open') !== 'true');
+    });
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var pal = b.dataset.pal;
+        root.dataset.palette = pal;
+        try { localStorage.setItem(storageKey, pal); } catch (e) {}
+        setActive(pal);
+        setOpen(false);
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!dock.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    setActive(root.dataset.palette || defaultPalette);
+  })();
+</script>
+
+<style>
+  .pal-dock {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 200;
+    font-family: inherit;
+  }
+  .pal-dock-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem 0.5rem 0.55rem;
+    background: var(--card, rgba(10, 10, 10, 0.88));
+    color: var(--fg, #fff);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    transition: opacity 180ms ease, transform 180ms ease;
+    opacity: 0.55;
+  }
+  .pal-dock-trigger:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  .pal-dock[data-open="true"] .pal-dock-trigger {
+    opacity: 1;
+  }
+  .pal-dock-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 45deg,
+      var(--accent, #d9923d),
+      var(--fg, #e6d5b4),
+      var(--accent2, #2a6a70),
+      var(--bg, #0a1f22),
+      var(--accent, #d9923d)
+    );
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.2));
+    flex-shrink: 0;
+  }
+  .pal-dock-menu {
+    position: absolute;
+    bottom: calc(100% + 0.6rem);
+    right: 0;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.4rem;
+    background: var(--card, rgba(10, 10, 10, 0.94));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
+  }
+  .pal-dock[data-open="true"] .pal-dock-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .pal-dock-menu button {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.6rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    color: var(--fg);
+    transition: background 120ms ease, border-color 120ms ease;
+  }
+  .pal-dock-menu button:hover {
+    background: rgba(var(--fg-rgb, 255, 255, 255), 0.06);
+  }
+  .pal-dock-menu button.active {
+    border-color: rgba(var(--fg-rgb, 255, 255, 255), 0.22);
+    background: rgba(var(--fg-rgb, 255, 255, 255), 0.08);
+  }
+  .pal-dock-menu .pal-chips {
+    display: inline-flex;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .pal-dock-menu .pal-chips span {
+    display: block;
+    width: 11px;
+    height: 13px;
+  }
+  .pal-dock-menu .pal-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .pal-dock {
+      bottom: 1rem;
+      right: 1rem;
+    }
+    .pal-dock-trigger .pal-dock-k {
+      display: none;
+    }
+    .pal-dock-trigger {
+      padding: 0.5rem;
+    }
+  }
+</style>

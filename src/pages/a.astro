@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import Switcher from '../components/Switcher.astro';
+import PaletteDock from '../components/PaletteDock.astro';
 import { site } from '../data/content';
+import '../styles/palettes.css';
 ---
 <Base title={`${site.meta.brand} — Direction A · Cartographique`}>
   <Fragment slot="head">
@@ -9,9 +11,9 @@ import { site } from '../data/content';
       (function() {
         try {
           var saved = localStorage.getItem('palette-a');
-          document.documentElement.dataset.palette = saved || 'a1';
+          document.documentElement.dataset.palette = saved || 'emeraude-clair';
         } catch (e) {
-          document.documentElement.dataset.palette = 'a1';
+          document.documentElement.dataset.palette = 'emeraude-clair';
         }
       })();
     </script>
@@ -24,62 +26,9 @@ import { site } from '../data/content';
   </Fragment>
 
   <Switcher current="a" />
+  <PaletteDock storageKey="palette-a" defaultPalette="emeraude-clair" />
 
   <div class="page">
-    <nav class="palette-selector" aria-label="Choisir une palette de couleurs">
-      <span class="sel-k">Palette</span>
-      <button type="button" data-pal="a1" aria-label="Palette Éditorial">
-        <span class="pal-chips" aria-hidden="true">
-          <span style="background:#0a1f22"></span>
-          <span style="background:#e6d5b4"></span>
-          <span style="background:#2a6a70"></span>
-          <span style="background:#d9923d"></span>
-          <span style="background:#6b8a8e"></span>
-        </span>
-        <span class="pal-label">Éditorial</span>
-      </button>
-      <button type="button" data-pal="a2" aria-label="Palette Marine claire">
-        <span class="pal-chips" aria-hidden="true">
-          <span style="background:#d9ce9c"></span>
-          <span style="background:#14284a"></span>
-          <span style="background:#1a4a8c"></span>
-          <span style="background:#c89548"></span>
-          <span style="background:#6a5f42"></span>
-        </span>
-        <span class="pal-label">Marine claire</span>
-      </button>
-      <button type="button" data-pal="a3" aria-label="Palette Rouille claire">
-        <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ead8a4"></span>
-          <span style="background:#1a1510"></span>
-          <span style="background:#b04a28"></span>
-          <span style="background:#a8855a"></span>
-          <span style="background:#6a5242"></span>
-        </span>
-        <span class="pal-label">Rouille claire</span>
-      </button>
-      <button type="button" data-pal="a4" aria-label="Palette Marine foncée">
-        <span class="pal-chips" aria-hidden="true">
-          <span style="background:#0a1528"></span>
-          <span style="background:#e8ecf2"></span>
-          <span style="background:#3b82f6"></span>
-          <span style="background:#fbbf24"></span>
-          <span style="background:#8596a8"></span>
-        </span>
-        <span class="pal-label">Marine foncée</span>
-      </button>
-      <button type="button" data-pal="a5" aria-label="Palette Rouille foncée">
-        <span class="pal-chips" aria-hidden="true">
-          <span style="background:#1a120a"></span>
-          <span style="background:#f0e5d0"></span>
-          <span style="background:#ea580c"></span>
-          <span style="background:#d4a574"></span>
-          <span style="background:#8a7560"></span>
-        </span>
-        <span class="pal-label">Rouille foncée</span>
-      </button>
-    </nav>
-
     <div class="topbar">
       <span>Sourcier Québec</span>
       <span>47.3667° N · 70.0333° O · La Pocatière, QC</span>
@@ -279,77 +228,6 @@ import { site } from '../data/content';
       </div>
     </section>
 
-    <section class="palette-strip" id="palette">
-      <header class="section-head">
-        <h2>Palette chromatique</h2>
-      </header>
-
-      <div class="palette-display" data-pal="a1">
-        <p class="palette-intro">
-          <strong>Éditorial</strong> — palette issue de B (eau teal + bokeh ambré). Abysse profond, brume chaude, oxyde de cuivre. Mode sombre cinématographique appliqué à la structure cartographique.
-        </p>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#0a1f22"></div><span class="sw-name">Abysse</span><span class="sw-hex">#0A1F22</span></div>
-          <div class="swatch"><div class="chip" style="background:#e6d5b4"></div><span class="sw-name">Brume</span><span class="sw-hex">#E6D5B4</span></div>
-          <div class="swatch"><div class="chip" style="background:#2a6a70"></div><span class="sw-name">Oxyde</span><span class="sw-hex">#2A6A70</span></div>
-          <div class="swatch"><div class="chip" style="background:#d9923d"></div><span class="sw-name">Ambre</span><span class="sw-hex">#D9923D</span></div>
-          <div class="swatch"><div class="chip" style="background:#6b8a8e"></div><span class="sw-name">Brouillard</span><span class="sw-hex">#6B8A8E</span></div>
-        </div>
-      </div>
-
-      <div class="palette-display" data-pal="a2">
-        <p class="palette-intro">
-          <strong>Marine claire</strong> — sable chaud, outremer profond, cobalt pétrole, or vieilli. Accent bleu franc qui porte l'autorité maritime, sur fond kraft.
-        </p>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#d9ce9c"></div><span class="sw-name">Sable</span><span class="sw-hex">#D9CE9C</span></div>
-          <div class="swatch"><div class="chip" style="background:#14284a"></div><span class="sw-name">Outremer</span><span class="sw-hex">#14284A</span></div>
-          <div class="swatch"><div class="chip" style="background:#1a4a8c"></div><span class="sw-name">Cobalt</span><span class="sw-hex">#1A4A8C</span></div>
-          <div class="swatch"><div class="chip" style="background:#c89548"></div><span class="sw-name">Or</span><span class="sw-hex">#C89548</span></div>
-          <div class="swatch"><div class="chip" style="background:#6a5f42"></div><span class="sw-name">Galet</span><span class="sw-hex">#6A5F42</span></div>
-        </div>
-      </div>
-
-      <div class="palette-display" data-pal="a3">
-        <p class="palette-intro">
-          <strong>Rouille claire</strong> — crème chaude, charbon profond, rouille terre cuite, tan chamois. Accents qui évoquent le fer, la terre et le temps, sur fond crème.
-        </p>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ead8a4"></div><span class="sw-name">Crème</span><span class="sw-hex">#EAD8A4</span></div>
-          <div class="swatch"><div class="chip" style="background:#1a1510"></div><span class="sw-name">Charbon</span><span class="sw-hex">#1A1510</span></div>
-          <div class="swatch"><div class="chip" style="background:#b04a28"></div><span class="sw-name">Rouille</span><span class="sw-hex">#B04A28</span></div>
-          <div class="swatch"><div class="chip" style="background:#a8855a"></div><span class="sw-name">Tan</span><span class="sw-hex">#A8855A</span></div>
-          <div class="swatch"><div class="chip" style="background:#6a5242"></div><span class="sw-name">Pierre</span><span class="sw-hex">#6A5242</span></div>
-        </div>
-      </div>
-
-      <div class="palette-display" data-pal="a4">
-        <p class="palette-intro">
-          <strong>Marine foncée</strong> — variante nuit : abysse outremer comme fond, cream cool comme texte, cobalt vif et or doré éclatants. Le même ADN maritime renversé en mode sombre.
-        </p>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#0a1528"></div><span class="sw-name">Abysse</span><span class="sw-hex">#0A1528</span></div>
-          <div class="swatch"><div class="chip" style="background:#e8ecf2"></div><span class="sw-name">Écume</span><span class="sw-hex">#E8ECF2</span></div>
-          <div class="swatch"><div class="chip" style="background:#3b82f6"></div><span class="sw-name">Cobalt vif</span><span class="sw-hex">#3B82F6</span></div>
-          <div class="swatch"><div class="chip" style="background:#fbbf24"></div><span class="sw-name">Or</span><span class="sw-hex">#FBBF24</span></div>
-          <div class="swatch"><div class="chip" style="background:#8596a8"></div><span class="sw-name">Brume</span><span class="sw-hex">#8596A8</span></div>
-        </div>
-      </div>
-
-      <div class="palette-display" data-pal="a5">
-        <p class="palette-intro">
-          <strong>Rouille foncée</strong> — variante forge : charbon d'atelier comme fond, cream brûlé comme texte, rouille vive et tan doré éclatants. Le même ADN terreux en mode sombre.
-        </p>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#1a120a"></div><span class="sw-name">Charbon</span><span class="sw-hex">#1A120A</span></div>
-          <div class="swatch"><div class="chip" style="background:#f0e5d0"></div><span class="sw-name">Cendre</span><span class="sw-hex">#F0E5D0</span></div>
-          <div class="swatch"><div class="chip" style="background:#ea580c"></div><span class="sw-name">Rouille vive</span><span class="sw-hex">#EA580C</span></div>
-          <div class="swatch"><div class="chip" style="background:#d4a574"></div><span class="sw-name">Tan</span><span class="sw-hex">#D4A574</span></div>
-          <div class="swatch"><div class="chip" style="background:#8a7560"></div><span class="sw-name">Pierre</span><span class="sw-hex">#8A7560</span></div>
-        </div>
-      </div>
-    </section>
-
     <footer class="footer" id="footer">
       <div class="foot-grid">
         <div>
@@ -373,80 +251,13 @@ import { site } from '../data/content';
     </footer>
   </div>
 
-  <script is:inline>
-    (function () {
-      var buttons = document.querySelectorAll('.palette-selector button');
-      var root = document.documentElement;
-      function setActive(pal) {
-        root.dataset.palette = pal;
-        try { localStorage.setItem('palette-a', pal); } catch (e) {}
-        buttons.forEach(function (b) {
-          b.classList.toggle('active', b.dataset.pal === pal);
-        });
-      }
-      buttons.forEach(function (b) {
-        b.addEventListener('click', function () { setActive(b.dataset.pal); });
-      });
-      setActive(root.dataset.palette || 'a1');
-    })();
-  </script>
-
   <style>
-    :root[data-palette="a1"] {
-      /* Éditorial — thème de B, dark teal + ambre */
-      --bg: #0a1f22;
-      --fg: #e6d5b4;
-      --fg-rgb: 230, 213, 180;
-      --accent: #d9923d;
-      --accent2: #2a6a70;
-      --card: #0e262b;
-      --card-rgb: 14, 38, 43;
-    }
-    :root[data-palette="a2"] {
-      /* Marine claire — sable profond + cobalt + or */
-      --bg: #d9ce9c;
-      --fg: #14284a;
-      --fg-rgb: 20, 40, 74;
-      --accent: #1a4a8c;
-      --accent2: #c89548;
-      --card: #e2d6a2;
-      --card-rgb: 226, 214, 162;
-    }
-    :root[data-palette="a3"] {
-      /* Rouille claire — crème profond + charbon + rouille */
-      --bg: #ead8a4;
-      --fg: #1a1510;
-      --fg-rgb: 26, 21, 16;
-      --accent: #b04a28;
-      --accent2: #a8855a;
-      --card: #f0dea8;
-      --card-rgb: 240, 222, 168;
-    }
-    :root[data-palette="a4"] {
-      /* Marine foncée — variante nuit, fond abysse */
-      --bg: #0a1528;
-      --fg: #e8ecf2;
-      --fg-rgb: 232, 236, 242;
-      --accent: #3b82f6;
-      --accent2: #fbbf24;
-      --card: #122040;
-      --card-rgb: 18, 32, 64;
-    }
-    :root[data-palette="a5"] {
-      /* Rouille foncée — variante forge, fond charbon */
-      --bg: #1a120a;
-      --fg: #f0e5d0;
-      --fg-rgb: 240, 229, 208;
-      --accent: #ea580c;
-      --accent2: #d4a574;
-      --card: #231710;
-      --card-rgb: 35, 23, 16;
-    }
-
-    /* Overrides pour le portrait en mode sombre (Éditorial, Marine foncée, Rouille foncée) */
-    :root[data-palette="a1"] .p-frame img,
-    :root[data-palette="a4"] .p-frame img,
-    :root[data-palette="a5"] .p-frame img {
+    /* Overrides pour le portrait sur les palettes sombres */
+    :root[data-palette="editorial"] .p-frame img,
+    :root[data-palette="marine"] .p-frame img,
+    :root[data-palette="rouille"] .p-frame img,
+    :root[data-palette="ocean-fonce"] .p-frame img,
+    :root[data-palette="emeraude-fonce"] .p-frame img {
       mix-blend-mode: normal;
       filter: grayscale(1) contrast(1.12) brightness(1.05);
     }
@@ -468,73 +279,6 @@ import { site } from '../data/content';
       max-width: 1040px;
       margin: 0 auto;
       padding: 0 clamp(1.25rem, 4vw, 2.5rem);
-    }
-
-    /* Palette selector — sticky, avec chips de couleur visibles */
-    .palette-selector {
-      position: sticky;
-      top: 2.25rem;
-      z-index: 90;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.85rem 0;
-      margin: 0 calc(clamp(1.25rem, 4vw, 2.5rem) * -1);
-      padding-left: clamp(1.25rem, 4vw, 2.5rem);
-      padding-right: clamp(1.25rem, 4vw, 2.5rem);
-      background: var(--bg);
-      border-bottom: 1px solid rgba(var(--fg-rgb), 0.18);
-      flex-wrap: wrap;
-    }
-    .palette-selector .sel-k {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(var(--fg-rgb), 0.5);
-      margin-right: 0.25rem;
-    }
-    .palette-selector button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.4rem 0.65rem 0.4rem 0.45rem;
-      background: transparent;
-      border: 1px solid rgba(var(--fg-rgb), 0.22);
-      cursor: pointer;
-      transition: all 180ms;
-      font-family: inherit;
-    }
-    .palette-selector button:hover {
-      border-color: var(--fg);
-      transform: translateY(-1px);
-    }
-    .palette-selector button.active {
-      border-color: var(--fg);
-      background: rgba(var(--fg-rgb), 0.06);
-    }
-    .pal-chips {
-      display: inline-flex;
-      gap: 0;
-    }
-    .pal-chips span {
-      display: block;
-      width: 16px;
-      height: 18px;
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
-    }
-    .pal-chips span:last-child { border-right: none; }
-    .pal-label {
-      font-family: 'Crimson Pro', serif;
-      font-size: 0.98rem;
-      color: var(--fg);
-      font-weight: 500;
-      line-height: 1;
-    }
-    @media (max-width: 640px) {
-      .palette-selector { gap: 0.4rem; padding: 0.65rem clamp(1.25rem, 4vw, 2.5rem); }
-      .palette-selector .sel-k { width: 100%; margin-bottom: 0.25rem; }
-      .pal-label { font-size: 0.9rem; }
     }
 
     .topbar {
@@ -964,66 +708,6 @@ import { site } from '../data/content';
     .coords a { color: var(--fg); border-bottom: 1px solid rgba(var(--fg-rgb), 0.3); text-decoration: none; }
     .coords a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* Palette strip */
-    .palette-display { display: none; }
-    :root[data-palette="a1"] .palette-display[data-pal="a1"],
-    :root[data-palette="a2"] .palette-display[data-pal="a2"],
-    :root[data-palette="a3"] .palette-display[data-pal="a3"],
-    :root[data-palette="a4"] .palette-display[data-pal="a4"],
-    :root[data-palette="a5"] .palette-display[data-pal="a5"] {
-      display: block;
-    }
-    .palette-intro {
-      font-style: italic;
-      color: rgba(var(--fg-rgb), 0.75);
-      max-width: 62ch;
-      margin: 0 0 2rem;
-      line-height: 1.55;
-    }
-    .palette-intro strong {
-      font-family: 'JetBrains Mono', monospace;
-      font-style: normal;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      font-weight: 600;
-      display: inline-block;
-      margin-right: 0.35rem;
-    }
-    .swatches {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      border: 1px solid var(--fg);
-      background: var(--card);
-    }
-    .swatch {
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid rgba(var(--fg-rgb), 0.25);
-    }
-    .swatch:last-child { border-right: none; }
-    .chip {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      border-bottom: 1px solid rgba(var(--fg-rgb), 0.25);
-    }
-    .sw-name {
-      font-family: 'Crimson Pro', serif;
-      font-size: 1rem;
-      padding: 0.65rem 0.75rem 0.15rem;
-      font-weight: 500;
-    }
-    .sw-hex {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
-      padding: 0 0.75rem 0.75rem;
-      color: rgba(var(--fg-rgb), 0.6);
-      text-transform: uppercase;
-    }
-
     /* Footer */
     .footer {
       margin-top: 5rem;
@@ -1060,9 +744,6 @@ import { site } from '../data/content';
       .row { text-align: left; }
       .prix { text-align: left; }
       .form { grid-template-columns: 1fr; }
-      .swatches { grid-template-columns: repeat(2, 1fr); }
-      .swatch { border-bottom: 1px solid rgba(var(--fg-rgb), 0.25); }
-      .swatch:nth-child(even) { border-right: none; }
     }
   </style>
 </Base>
