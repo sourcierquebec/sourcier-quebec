@@ -1,236 +1,1177 @@
 ---
 import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import StickyCta from '../components/StickyCta.astro';
+import { site } from '../data/content';
+import '../styles/palettes.css';
 
-const variants = [
-  {
-    id: 'a',
-    letter: 'A',
-    name: 'Cartographique',
-    tagline: 'Planche de géologue · rigueur scientifique',
-    bg: '#ede4d1',
-    fg: '#0e1c3b',
-    accent: '#b3452e',
-    muted: '#f7f3ea',
-    description:
-      'Crédibilité scientifique, grille cadastrale, coordonnées GPS, coupe géologique. Zéro connotation ésotérique.',
-  },
-  {
-    id: 'b',
-    letter: 'B',
-    name: 'Éditorial',
-    tagline: 'Long-form magazine · descente immersive',
-    bg: '#0a0a0b',
-    fg: '#f5f1e8',
-    accent: '#c18a3d',
-    muted: '#6fa8c4',
-    description:
-      'Grandes photos, typographie serif dramatique, storytelling par le scroll. Plus émotionnel, plus mémorable.',
-  },
-  {
-    id: 'c',
-    letter: 'C',
-    name: 'Carnet',
-    tagline: 'Brutaliste artisanal · incarné par Thomas',
-    bg: '#faf8f3',
-    fg: '#111111',
-    accent: '#8b3a1f',
-    muted: '#e8e4d8',
-    description:
-      'Grotesque moderne, chiffres surdimensionnés, annotations manuscrites. Chaleur et savoir-faire.',
-  },
-];
+const romans = ['I', 'II', 'III'];
 ---
-<Base title="Sourcier Québec — 3 directions design">
+<Base title={`${site.meta.brand} — ${site.meta.baseline}`}>
   <Fragment slot="head">
+    <script is:inline>
+      document.documentElement.dataset.palette = 'editorial';
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
     />
   </Fragment>
 
-  <main>
-    <header class="intro">
-      <span class="mark">§ 00 — Sélection de direction design</span>
-      <h1>Sourcier Québec</h1>
-      <p>
-        Trois directions distinctes pour le site de Thomas. Chacune décline
-        l'intégralité du contenu (9 sections). Cliquez pour explorer, comparez
-        sur desktop et mobile, puis tranchez.
-      </p>
-    </header>
+  <SiteHeader />
+  <StickyCta />
 
-    <section class="grid">
-      {variants.map((v) => (
-        <a
-          href={`/${v.id}/`}
-          class="card"
-          style={`--bg:${v.bg};--fg:${v.fg};--accent:${v.accent};--muted:${v.muted};`}
-        >
-          <div class="card-inner">
-            <div class="top">
-              <span class="letter">{v.letter}</span>
-              <span class="arrow">→</span>
+  {/* 01 Hero — full-viewport */}
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>
+        Sous vos pieds,<br />
+        <em>l'eau attend.</em>
+      </h1>
+      <p class="lede">{site.hero.accroche}</p>
+      <div class="actions">
+        <a class="cta" href={site.hero.cta.href}>{site.hero.cta.label}</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Descendre</span>
+        <span class="arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  {/* 02 Piliers — 3 chapitres */}
+  <section class="piliers" id="piliers">
+    <h2 class="section-title">Trois piliers<br /><em>d'une démarche.</em></h2>
+    <div class="chapters">
+      {site.piliers.map((p, i) => (
+        <article class="chapter">
+          <span class="roman">{romans[i]}</span>
+          <div>
+            <h3>{p.titre}</h3>
+            <p>{p.texte}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* 03 À Propos */}
+  <section class="about" id="about">
+    <div class="about-inner">
+      <figure class="about-img">
+        <div class="about-img-frame">
+          <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+        </div>
+        <figcaption>Thomas Hiessler · Sourcier professionnel</figcaption>
+      </figure>
+      <div class="about-text">
+        <h2 class="section-title"><em>L'homme</em><br />derrière les baguettes.</h2>
+        <p class="intro-p">{site.about.intro}</p>
+        <p>{site.about.parcours}</p>
+        <p>{site.about.methode}</p>
+        <div class="points">
+          {site.about.points.map((pt) => (
+            <div class="point">
+              <h4>{pt.titre}</h4>
+              <p>{pt.texte}</p>
             </div>
-            <div class="bottom">
-              <h2>{v.name}</h2>
-              <p class="tagline">{v.tagline}</p>
-              <p class="desc">{v.description}</p>
-              <span class="link">Ouvrir la variante {v.letter}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 04 Forfaits */}
+  <section class="forfaits" id="forfaits">
+    <h2 class="section-title">Tarifs<br /><em>sans mystère.</em></h2>
+    <div class="forfaits-list">
+      {site.forfaits.map((f, i) => (
+        <article class="forfait-row">
+          <span class="f-num">0{i + 1}</span>
+          <div class="f-meta">
+            <h3>{f.nom}</h3>
+            <p class="surface">{f.surface} · {f.cible}</p>
+            <ul>
+              {f.inclusions.map((inc) => <li>{inc}</li>)}
+            </ul>
+          </div>
+          <div class="f-prix">
+            <span class="big-num">{f.prix}</span>
+            <span class="dollar">$</span>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="forfait-note">{site.zone.note}</p>
+  </section>
+
+  {/* 05 Zone */}
+  <section class="zone" id="zone">
+    <h2 class="section-title">Territoire<br /><em>d'intervention.</em></h2>
+    <div class="zone-grid">
+      <div class="zone-base">
+        <p class="zone-label">Base opérationnelle</p>
+        <p class="zone-city">{site.zone.base}</p>
+        <p class="zone-coord">{site.zone.coords}</p>
+      </div>
+      <div class="zone-regions">
+        <p class="zone-label">Régions desservies</p>
+        {site.zone.regions.map((r) => <p class="zone-region">{r}</p>)}
+        <p class="zone-muted">{site.zone.autre}</p>
+      </div>
+      <div class="zone-frais">
+        <p class="zone-label">Déplacement</p>
+        <p><em>Inclus :</em> {site.zone.rayonInclus}</p>
+        <p><em>Au-delà :</em> {site.zone.tarifKm}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* 06 FAQ */}
+  <section class="faq" id="faq">
+    <h2 class="section-title">Questions<br /><em>fréquentes.</em></h2>
+    <div class="faq-list">
+      {site.faq.map((item, i) => (
+        <details open={i === 0}>
+          <summary>
+            <span class="q-num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="q-text">{item.q}</span>
+          </summary>
+          <p>{item.r}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  {/* 07 Témoignages */}
+  <section class="temoignages" id="temoignages">
+    <h2 class="section-title"><em>Voix</em><br />du terrain.</h2>
+    <p class="t-intro">{site.temoignages.intro}</p>
+    <div class="t-grid">
+      {site.temoignages.placeholders.map((t) => (
+        <figure>
+          <blockquote>{`«\u00A0${t.texte}\u00A0»`}</blockquote>
+          <figcaption>— {t.auteur}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {/* 08 Contact */}
+  <section class="contact" id="contact">
+    <h2 class="section-title"><em>Demander</em><br />une soumission.</h2>
+    <p class="contact-lede">{site.contact.formIntro}</p>
+    <div class="contact-wrap">
+      <form
+        class="form"
+        method="POST"
+        action="https://formsubmit.co/sourcierquebec@gmail.com"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        <input type="hidden" name="_subject" value="Nouvelle demande de soumission — Sourcier Québec" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://sourcier.thierrypoitras.com/#contact" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <p class="form-privacy">{site.meta.confidentialiteForm}</p>
+
+        <fieldset>
+          <legend>Identification du demandeur</legend>
+          <div class="radios" role="radiogroup" aria-label="Type de client">
+            <label class="radio-inline">
+              <input type="radio" name="type_client" value="particulier" checked />
+              <span>Particulier</span>
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type_client" value="entreprise" />
+              <span>Entreprise ou organisme</span>
+            </label>
+          </div>
+          <div class="row2">
+            <label><span>Nom complet *</span><input type="text" name="nom" required /></label>
+            <label data-show-when="entreprise" hidden>
+              <span>Nom de l'entreprise / organisme</span>
+              <input type="text" name="entreprise" />
+            </label>
+          </div>
+          <div class="row2">
+            <label><span>Courriel *</span><input type="email" name="email" required /></label>
+            <label><span>Téléphone *</span><input type="tel" name="tel" required /></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Localisation du projet</legend>
+          <label>
+            <span>Adresse de résidence du demandeur *</span>
+            <input type="text" name="adresse_residence" required />
+          </label>
+          <label>
+            <span>Adresse exacte du lieu de la recherche (si différente)</span>
+            <input type="text" name="adresse_recherche" />
+          </label>
+          <small class="form-note">
+            Précisez le lot ou les coordonnées GPS si l'adresse n'est pas encore numérotée.
+          </small>
+        </fieldset>
+
+        <fieldset>
+          <legend>Nature technique de la demande</legend>
+          <label>
+            <span>Raison de la recherche *</span>
+            <textarea name="raison" rows="3" required></textarea>
+          </label>
+          <div class="row2">
+            <label>
+              <span>Surface de recherche estimée</span>
+              <div class="combo">
+                <input type="number" name="surface" min="0" step="1" />
+                <select name="surface_unite" aria-label="Unité de surface">
+                  <option value="m2">m²</option>
+                  <option value="pi2">pi²</option>
+                </select>
+              </div>
+            </label>
+            <label>
+              <span>Débit souhaité (L/h)</span>
+              <div class="input-with-toggle">
+                <input type="number" name="debit" min="0" step="1" placeholder="ex. 500" />
+                <label class="toggle-chip">
+                  <input type="checkbox" name="debit_inconnu" data-disable-target="debit" />
+                  <span>Inconnu</span>
+                </label>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>État d'avancement du projet</legend>
+          <div class="field-block">
+            <span class="field-label">Date prévue pour le forage</span>
+            <div class="radios" role="radiogroup" aria-label="Date prévue">
+              <label class="radio-inline"><input type="radio" name="date_forage" value="moins_1_mois" /><span>Moins d'un mois</span></label>
+              <label class="radio-inline"><input type="radio" name="date_forage" value="1_6_mois" /><span>1 à 6 mois</span></label>
+              <label class="radio-inline"><input type="radio" name="date_forage" value="aucune" /><span>Pas de date</span></label>
             </div>
           </div>
-        </a>
-      ))}
-    </section>
 
-    <footer class="footer">
-      <span>Sourcier Québec · Thomas · La Pocatière</span>
-      <span>47.3667° N · 70.0333° O</span>
-    </footer>
-  </main>
+          <div class="field-block">
+            <span class="field-label">Entreprise de forage déjà sélectionnée&nbsp;?</span>
+            <div class="radios" role="radiogroup" aria-label="Foreur sélectionné">
+              <label class="radio-inline"><input type="radio" name="foreur" value="non" checked /><span>Non</span></label>
+              <label class="radio-inline"><input type="radio" name="foreur" value="oui" /><span>Oui</span></label>
+            </div>
+            <label data-show-when="foreur-oui" hidden>
+              <span>Nom du foreur</span>
+              <input type="text" name="foreur_nom" />
+            </label>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Demande de permis à la municipalité</span>
+            <div class="radios" role="radiogroup" aria-label="Permis municipal">
+              <label class="radio-inline"><input type="radio" name="permis" value="depose" /><span>Formulaire déjà rempli et déposé</span></label>
+              <label class="radio-inline"><input type="radio" name="permis" value="en_attente" /><span>En attente / pas encore fait</span></label>
+            </div>
+            <small class="form-note">
+              Il est souvent recommandé d'avoir l'avis du sourcier avant de finaliser l'emplacement sur le permis.
+            </small>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Plan cadastral</legend>
+          <label>
+            <span>Joindre votre plan cadastral (PDF, JPG, PNG)</span>
+            <input type="file" name="cadastre" accept=".pdf,.jpg,.jpeg,.png" />
+          </label>
+          <small class="form-note">
+            Joindre le plan cadastral permet une étude préalable avant intervention.
+          </small>
+        </fieldset>
+
+        <button type="submit">Envoyer la demande →</button>
+      </form>
+
+      <aside class="coords">
+        <p class="zone-label">Me joindre</p>
+        <p class="coord-line">{site.contact.adresse}</p>
+        <p class="coord-line"><a href={`tel:${site.contact.telRaw}`}>{site.contact.tel}</a></p>
+        <p class="coord-line"><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+        <p class="coord-line muted">{site.contact.horaires}</p>
+      </aside>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var form = document.querySelector('.contact .form');
+        if (!form) return;
+
+        // Particulier / Entreprise : révèle le champ entreprise
+        form.querySelectorAll('input[name="type_client"]').forEach(function (r) {
+          r.addEventListener('change', function () {
+            var target = form.querySelector('[data-show-when="entreprise"]');
+            if (!target) return;
+            if (r.value === 'entreprise' && r.checked) target.removeAttribute('hidden');
+            else if (r.value === 'particulier' && r.checked) target.setAttribute('hidden', '');
+          });
+        });
+
+        // Foreur Non / Oui : révèle le nom du foreur
+        form.querySelectorAll('input[name="foreur"]').forEach(function (r) {
+          r.addEventListener('change', function () {
+            var target = form.querySelector('[data-show-when="foreur-oui"]');
+            if (!target) return;
+            if (r.value === 'oui' && r.checked) target.removeAttribute('hidden');
+            else target.setAttribute('hidden', '');
+          });
+        });
+
+        // Checkbox Inconnu : désactive le champ débit
+        form.querySelectorAll('[data-disable-target]').forEach(function (cb) {
+          cb.addEventListener('change', function () {
+            var name = cb.getAttribute('data-disable-target');
+            var input = form.querySelector('input[name="' + name + '"]');
+            if (!input) return;
+            input.disabled = cb.checked;
+            if (cb.checked) input.value = '';
+          });
+        });
+      })();
+    </script>
+  </section>
+
+  {/* 09 Footer */}
+  <footer class="footer">
+    <div class="foot-top">
+      <div>
+        <p class="f-brand">Sourcier Québec</p>
+        <p class="f-muted">Thomas Hiessler · {site.contact.adresse}</p>
+      </div>
+      <div class="f-links">
+        <a href="#piliers">Démarche</a>
+        <a href="#forfaits">Forfaits</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href={site.meta.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+      </div>
+    </div>
+    <div class="clause">
+      <p class="zone-label">Avis important</p>
+      <p>{site.legal.clause}</p>
+    </div>
+    <div class="f-copy">
+      <span>© 2026 Sourcier Québec</span>
+      <span>Thomas Hiessler · La Pocatière, Québec</span>
+    </div>
+  </footer>
 
   <style>
     :global(html, body) {
       margin: 0;
       padding: 0;
-      background: #0a0a0b;
-      color: #f5f1e8;
+      background: var(--bg);
+      color: var(--fg);
       font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
       -webkit-font-smoothing: antialiased;
+      transition: background 350ms ease, color 350ms ease;
     }
-    main {
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+    :global(section) {
+      padding: clamp(5rem, 12vh, 10rem) clamp(1.25rem, 6vw, 4rem);
       max-width: 1400px;
       margin: 0 auto;
     }
-    .intro {
-      max-width: 720px;
-      margin-bottom: 3rem;
-    }
-    .mark {
-      font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
+    .part {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      color: rgba(245, 241, 232, 0.55);
-      display: block;
-      margin-bottom: 1rem;
-    }
-    .intro h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      margin: 0 0 1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin: 0 0 1.5rem;
       font-weight: 500;
     }
-    .intro p {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: rgba(245, 241, 232, 0.78);
-      margin: 0;
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      margin: 0 0 3rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 1.25rem;
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
     }
-    .card {
-      display: block;
-      text-decoration: none;
-      color: var(--fg);
-      background: var(--bg);
-      aspect-ratio: 3 / 4;
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
       position: relative;
+      display: flex;
+      align-items: center;
+      padding: 6rem clamp(1.25rem, 6vw, 4rem) 4rem;
       overflow: hidden;
-      border: 1px solid rgba(245, 241, 232, 0.1);
-      transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .card:hover {
-      transform: translateY(-4px);
-    }
-    .card-inner {
+    .hero-bg {
       position: absolute;
       inset: 0;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(var(--accent2-rgb), 0.12), transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(var(--accent-rgb), 0.08), transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, var(--card) 100%);
+      z-index: 0;
     }
-    .card::before {
+    .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--fg) 10%, transparent) 1px, transparent 0);
-      background-size: 20px 20px;
-      opacity: 0.6;
-      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 200px,
+        rgba(var(--fg-rgb), 0.04) 200px,
+        rgba(var(--fg-rgb), 0.04) 201px
+      );
     }
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+    .hero-content {
       position: relative;
       z-index: 1;
+      max-width: 1100px;
     }
-    .letter {
-      font-size: clamp(4rem, 12vw, 7rem);
-      line-height: 1;
+    .eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent2);
+      margin-bottom: 2rem;
       font-weight: 500;
-      letter-spacing: -0.04em;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      margin: 0 0 2rem;
+      font-weight: 400;
+    }
+    .hero h1 em {
+      font-style: italic;
       color: var(--accent);
     }
-    .arrow {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 1.25rem;
-      opacity: 0.6;
+    .lede {
+      font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+      line-height: 1.55;
+      max-width: 54ch;
+      margin: 0 0 2.5rem;
+      color: rgba(var(--fg-rgb), 0.78);
     }
-    .bottom {
-      position: relative;
-      z-index: 1;
+    .actions { margin-bottom: 4rem; }
+    .cta {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: transform 200ms, background 200ms;
     }
-    .bottom h2 {
-      font-size: 1.5rem;
-      margin: 0 0 0.25rem;
-      font-weight: 500;
-      letter-spacing: -0.01em;
+    .cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
     }
-    .tagline {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin: 0 0 1rem;
-      opacity: 0.65;
-    }
-    .desc {
-      font-size: 0.92rem;
-      line-height: 1.5;
-      margin: 0 0 1.25rem;
-      opacity: 0.85;
-    }
-    .link {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      border-bottom: 1px solid currentColor;
-      padding-bottom: 2px;
+      letter-spacing: 0.15em;
+      color: rgba(var(--fg-rgb), 0.45);
     }
+    .scroll-hint .arrow {
+      font-size: 1rem;
+      animation: bob 2s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* Piliers */
+    .chapters {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+    .chapter {
+      display: grid;
+      grid-template-columns: minmax(140px, 200px) 1fr;
+      gap: 3rem;
+      align-items: start;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.1);
+    }
+    .chapter:last-child { border-bottom: none; }
+    .roman {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.85;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    .chapter h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin: 0 0 1rem;
+      font-weight: 500;
+    }
+    .chapter p {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      max-width: 60ch;
+      color: rgba(var(--fg-rgb), 0.78);
+      margin: 0;
+    }
+
+    /* About */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-img {
+      position: sticky;
+      top: 6rem;
+      margin: 0;
+    }
+    .about-img-frame {
+      --eye-x: 62%;
+      --eye-y: 29%;
+      --zoom: 1.25;
+      --target-x: 33%;
+      --target-y: 33%;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .about-img-frame img {
+      position: absolute;
+      width: calc(var(--zoom) * 100%);
+      height: calc(var(--zoom) * 100%);
+      left: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-x) - var(--eye-x) * var(--zoom)),
+        0%
+      );
+      top: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-y) - var(--eye-y) * var(--zoom)),
+        0%
+      );
+      display: block;
+      filter: grayscale(1) contrast(1.12) brightness(0.92);
+    }
+    .about-img::before,
+    .about-img::after {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--accent);
+      z-index: 1;
+    }
+    .about-img::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+    .about-img::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+    .about-img figcaption {
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(var(--fg-rgb), 0.55);
+      text-align: center;
+    }
+    .about-text p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: rgba(var(--fg-rgb), 0.8);
+      max-width: 60ch;
+      margin: 0 0 1.25rem;
+    }
+    .intro-p {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.5rem !important;
+      font-style: italic;
+      color: var(--fg) !important;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+    .points {
+      margin-top: 3rem;
+      display: grid;
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.1);
+    }
+    .point h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .point p {
+      margin: 0 !important;
+      font-size: 1rem !important;
+    }
+
+    /* Forfaits */
+    .forfaits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .forfait-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2.5rem;
+      align-items: center;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .forfait-row:last-child { border-bottom: 1px solid rgba(var(--fg-rgb), 0.15); }
+    .f-num {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .forfait-row h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      margin: 0 0 0.5rem;
+      font-weight: 500;
+    }
+    .surface {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(var(--fg-rgb), 0.55);
+      margin: 0 0 1rem;
+    }
+    .forfait-row ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+    }
+    .forfait-row ul li {
+      font-size: 0.92rem;
+      color: rgba(var(--fg-rgb), 0.7);
+      position: relative;
+      padding-left: 0.9rem;
+    }
+    .forfait-row ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .f-prix {
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      align-items: baseline;
+      color: var(--accent);
+    }
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 0.9;
+      font-weight: 400;
+      font-style: italic;
+    }
+    .dollar {
+      font-size: 1.5rem;
+      margin-left: 0.2rem;
+    }
+    .forfait-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(var(--fg-rgb), 0.5);
+      font-style: italic;
+    }
+
+    /* Zone */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .zone-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      margin: 0 0 1rem;
+    }
+    .zone-city {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    .zone-coord {
+      font-size: 0.85rem;
+      color: rgba(var(--fg-rgb), 0.55);
+      margin: 0;
+    }
+    .zone-region {
+      font-size: 1.15rem;
+      margin: 0 0 0.4rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+    .zone-muted, .zone-frais p {
+      color: rgba(var(--fg-rgb), 0.75);
+      line-height: 1.55;
+      margin: 0 0 0.5rem;
+    }
+    .zone-frais em {
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* FAQ */
+    .faq-list details {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .faq-list details:last-child {
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .faq-list summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .q-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--accent);
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      font-weight: 500;
+      color: var(--fg);
+    }
+    .faq-list details p {
+      margin: 1.5rem 0 0 calc(1.3rem + 2rem);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(var(--fg-rgb), 0.78);
+      max-width: 70ch;
+    }
+
+    /* Témoignages */
+    .t-intro {
+      max-width: 60ch;
+      color: rgba(var(--fg-rgb), 0.7);
+      margin: 0 0 3rem;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+    .t-grid figure {
+      margin: 0;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.2);
+    }
+    .t-grid blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.5;
+      margin: 0 0 1.5rem;
+      color: var(--fg);
+    }
+    .t-grid figcaption {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(var(--fg-rgb), 0.55);
+    }
+
+    /* Contact */
+    .contact-lede {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(var(--fg-rgb), 0.7);
+      max-width: 60ch;
+      margin: -1.5rem 0 2.5rem;
+    }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2.25rem clamp(1.5rem, 3vw, 2.5rem);
+      background: rgba(var(--fg-rgb), 0.05);
+      border: 1px solid rgba(var(--fg-rgb), 0.12);
+    }
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .form span {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(var(--fg-rgb), 0.82);
+      font-weight: 500;
+    }
+    .form input, .form select, .form textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      background: rgba(var(--fg-rgb), 0.06);
+      border: 1px solid rgba(var(--fg-rgb), 0.22);
+      color: var(--fg);
+      padding: 0.7rem 0.85rem;
+      border-radius: 2px;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .form textarea {
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      min-height: 4.5rem;
+    }
+    .form input::placeholder,
+    .form textarea::placeholder {
+      color: rgba(var(--fg-rgb), 0.4);
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(var(--fg-rgb), 0.09);
+    }
+    .form select option { color: #111; background: #fff; }
+    .form button[type="submit"] {
+      align-self: flex-start;
+      margin-top: 1rem;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 200ms, transform 200ms;
+    }
+    .form button[type="submit"]:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .form-privacy {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: rgba(var(--fg-rgb), 0.9);
+      border-left: 2px solid var(--accent);
+      padding: 0.9rem 1.25rem;
+      margin: 0;
+      background: rgba(var(--fg-rgb), 0.06);
+    }
+    .form fieldset {
+      border: none;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.18);
+      padding: 1.75rem 0 0.25rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form legend {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--accent);
+      font-weight: 500;
+      padding: 0 0.75rem 0 0;
+      margin-bottom: 0.35rem;
+    }
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .field-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .radios {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+    .radio-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--fg);
+      cursor: pointer;
+      background: rgba(var(--fg-rgb), 0.04);
+      border: 1px solid rgba(var(--fg-rgb), 0.22);
+      border-radius: 2px;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .radio-inline:hover {
+      background: rgba(var(--fg-rgb), 0.09);
+      border-color: rgba(var(--fg-rgb), 0.4);
+    }
+    .radio-inline:has(input:checked) {
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: var(--accent);
+    }
+    .radio-inline span {
+      font-size: 0.95rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--fg);
+    }
+    .radio-inline input {
+      accent-color: var(--accent);
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+    }
+
+    /* Input + checkbox toggle (ex: Débit / Inconnu) */
+    .input-with-toggle {
+      display: flex;
+      gap: 0.6rem;
+      align-items: stretch;
+    }
+    .input-with-toggle input[type="number"] {
+      flex: 1;
+      min-width: 0;
+    }
+    .toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.95rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--fg);
+      cursor: pointer;
+      background: rgba(var(--fg-rgb), 0.04);
+      border: 1px solid rgba(var(--fg-rgb), 0.22);
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .toggle-chip:hover {
+      background: rgba(var(--fg-rgb), 0.09);
+      border-color: rgba(var(--fg-rgb), 0.4);
+    }
+    .toggle-chip:has(input:checked) {
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: var(--accent);
+    }
+    .toggle-chip input {
+      accent-color: var(--accent);
+      width: 0.95rem;
+      height: 0.95rem;
+      margin: 0;
+    }
+    .toggle-chip span {
+      font-size: 0.85rem;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .combo {
+      display: flex;
+      gap: 0.75rem;
+      align-items: baseline;
+    }
+    .combo input { flex: 1; }
+    .combo select {
+      flex: 0 0 auto;
+      font-size: 0.95rem;
+    }
+    .form-note {
+      display: block;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: rgba(var(--fg-rgb), 0.72);
+      line-height: 1.55;
+      margin-top: 0.25rem;
+    }
+    .form input[type="file"] {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.75rem;
+      background: rgba(var(--fg-rgb), 0.06);
+      border: 1px dashed rgba(var(--fg-rgb), 0.35);
+    }
+    .form input[type="file"]::file-selector-button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      margin-right: 0.85rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form input:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    [hidden] { display: none !important; }
+    .coords {
+      padding: 2rem;
+      background: rgba(var(--fg-rgb), 0.06);
+      border: 1px solid rgba(var(--fg-rgb), 0.12);
+      border-left: 2px solid var(--accent);
+    }
+    .coord-line {
+      margin: 0 0 0.75rem;
+      line-height: 1.55;
+    }
+    .coord-line a {
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+    }
+    .coord-line.muted {
+      color: rgba(var(--fg-rgb), 0.55);
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    /* Footer */
     .footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(245, 241, 232, 0.15);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem clamp(1.25rem, 6vw, 4rem) 3rem;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.15);
+    }
+    .foot-top {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .f-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    .f-muted {
+      font-size: 0.9rem;
+      color: rgba(var(--fg-rgb), 0.55);
+      margin: 0;
+    }
+    .f-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .f-links a {
+      color: rgba(var(--fg-rgb), 0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .f-links a:hover { color: var(--accent); }
+    .clause {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(var(--fg-rgb), 0.1);
+      border-bottom: 1px solid rgba(var(--fg-rgb), 0.1);
+      margin-bottom: 1.5rem;
+    }
+    .clause p:last-child {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(var(--fg-rgb), 0.6);
+      max-width: 80ch;
+      margin: 0;
+    }
+    .f-copy {
+      display: flex;
+      justify-content: space-between;
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(245, 241, 232, 0.55);
+      letter-spacing: 0.15em;
+      color: rgba(var(--fg-rgb), 0.45);
+    }
+
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img { position: static; max-width: 360px; }
+      .chapter { grid-template-columns: 1fr; gap: 1rem; }
+      .roman { font-size: 4rem; }
+      .forfait-row { grid-template-columns: 1fr; gap: 1rem; }
+      .f-prix { justify-content: flex-start; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .row2 { grid-template-columns: 1fr; }
     }
   </style>
 </Base>

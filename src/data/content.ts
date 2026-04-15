@@ -2,6 +2,9 @@ export const site = {
   meta: {
     brand: 'Sourcier Québec',
     baseline: "Sourcier professionnel au Québec",
+    facebookUrl: 'https://www.facebook.com/profile.php?id=61573288202003',
+    confidentialiteForm:
+      "Les informations recueillies dans ce formulaire sont strictement confidentielles et servent uniquement à l'établissement de votre offre de service et à la préparation de l'intervention technique.",
   },
 
   hero: {
@@ -32,13 +35,13 @@ export const site = {
       num: '03',
       titre: "L'Aide à la décision",
       texte:
-        "Obtenez un portrait concret de votre sous-sol et grâce à mon analyse décidez avec confiance s'il est opportun d'entreprendre un forage et si le projet répond à vos attentes de débit.",
+        "Obtenez un portrait concret de votre sous-sol et, grâce à mon analyse, décidez avec confiance s'il est opportun d'entreprendre un forage et si le projet répond à vos attentes de débit.",
     },
   ],
 
   about: {
     intro:
-      "Je propose la détection précise des sources d'eau, nappes phréatiques et veines d'eau, pour les particuliers, agriculteurs et professionnels du forage.",
+      "Je propose la détection précise des ressources en eau du sous-sol pour les particuliers, agriculteurs et professionnels du forage.",
     parcours:
       "Sourcier professionnel formé en France, je mets une décennie d'expérience en tant que passionné de la sourcellerie au service de la détection de vos ressources souterraines.",
     methode:
@@ -155,11 +158,13 @@ export const site = {
   },
 
   contact: {
-    adresse: '413d rue Lafontaine, La Pocatière, QC G0R 1Z0',
+    adresse: 'La Pocatière, Québec',
     tel: '1 (418) 356-6638',
     telRaw: '+14183566638',
     email: 'sourcierquebec@gmail.com',
     horaires: 'Du lundi au vendredi, 9 h 00 – 17 h 00',
+    formIntro:
+      "Remplissez le formulaire ci-dessous et recevez une soumission personnalisée, adaptée à votre terrain et à votre projet.",
   },
 
   legal: {

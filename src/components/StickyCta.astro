@@ -1,0 +1,58 @@
+---
+// Bouton flottant mobile qui apparaît après avoir quitté le hero
+---
+<a class="sticky-cta" href="#contact" data-hidden>
+  Demander une estimation
+</a>
+
+<script is:inline>
+  (function () {
+    var hero = document.getElementById('hero');
+    var cta = document.querySelector('.sticky-cta');
+    if (!hero || !cta) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          cta.setAttribute('data-hidden', '');
+        } else {
+          cta.removeAttribute('data-hidden');
+        }
+      });
+    }, { threshold: 0.15 });
+    io.observe(hero);
+  })();
+</script>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 40;
+    display: none;
+    text-align: center;
+    padding: 0.95rem 1.2rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 280ms ease, opacity 280ms ease, background 180ms ease;
+  }
+  .sticky-cta:not([data-hidden]) {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .sticky-cta:hover {
+    background: var(--accent-hover);
+  }
+  @media (max-width: 720px) {
+    .sticky-cta { display: block; }
+  }
+</style>
