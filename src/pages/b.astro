@@ -56,7 +56,9 @@ const romans = ['I', 'II', 'III'];
   <section class="about" id="about">
     <div class="about-inner">
       <figure class="about-img">
-        <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+        <div class="about-img-frame">
+          <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+        </div>
         <figcaption>Thomas · Sourcier professionnel</figcaption>
       </figure>
       <div class="about-text">
@@ -408,17 +410,34 @@ const romans = ['I', 'II', 'III'];
       top: 6rem;
       margin: 0;
     }
-    .about-img img {
+    .about-img-frame {
+      --eye-x: 62%;
+      --eye-y: 29%;
+      --zoom: 1.25;
+      --target-x: 33%;
+      --target-y: 33%;
+      position: relative;
       width: 100%;
       aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(1) contrast(1.12) brightness(0.92);
+      overflow: hidden;
       border: 1px solid rgba(230, 213, 180, 0.15);
     }
-    .about-img {
-      position: sticky;
-      top: 6rem;
+    .about-img-frame img {
+      position: absolute;
+      width: calc(var(--zoom) * 100%);
+      height: calc(var(--zoom) * 100%);
+      left: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-x) - var(--eye-x) * var(--zoom)),
+        0%
+      );
+      top: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-y) - var(--eye-y) * var(--zoom)),
+        0%
+      );
+      display: block;
+      filter: grayscale(1) contrast(1.12) brightness(0.92);
     }
     .about-img::before,
     .about-img::after {

@@ -30,11 +30,11 @@ import { site } from '../data/content';
       <span class="sel-k">Palette</span>
       <button type="button" data-pal="c1" aria-label="Palette Océan claire">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ffffff;outline:1px solid #e5e5e5;outline-offset:-1px"></span>
+          <span style="background:#dce8ec"></span>
           <span style="background:#0a0a0a"></span>
           <span style="background:#0891b2"></span>
           <span style="background:#ef4444"></span>
-          <span style="background:#6b6b6b"></span>
+          <span style="background:#5e6a6d"></span>
         </span>
         <span class="pal-label">Océan claire</span>
       </button>
@@ -50,11 +50,11 @@ import { site } from '../data/content';
       </button>
       <button type="button" data-pal="c3" aria-label="Palette Émeraude claire">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ffffff;outline:1px solid #e5e5e5;outline-offset:-1px"></span>
+          <span style="background:#dfe8df"></span>
           <span style="background:#0a0a0a"></span>
           <span style="background:#059669"></span>
           <span style="background:#fb7185"></span>
-          <span style="background:#6b6b6b"></span>
+          <span style="background:#5e6a5e"></span>
         </span>
         <span class="pal-label">Émeraude claire</span>
       </button>
@@ -118,7 +118,9 @@ import { site } from '../data/content';
       <h2>À <em>propos</em>.</h2>
       <div class="about-grid">
         <figure class="portrait-col">
-          <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+          <div class="portrait-frame">
+            <img src="/images/thomas.jpg" alt="Portrait de Thomas, sourcier professionnel en atelier" width="900" height="1200" />
+          </div>
           <figcaption>
             <span class="cap-name">Thomas</span>
             <span class="cap-role">Sourcier professionnel</span>
@@ -267,14 +269,14 @@ import { site } from '../data/content';
 
       <div class="palette-display" data-pal="c1">
         <p class="intro">
-          <strong>Océan claire</strong> — cyan profond et corail vif sur blanc pur. Référence directe à l'eau et à l'énergie, lecture claire et vibrante.
+          <strong>Océan claire</strong> — cyan profond et corail vif sur brume cool. Fond tinté mi-clair qui ancre le duo cool/warm sans aveugler.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
+          <div class="swatch"><div class="chip" style="background:#dce8ec"></div><span class="sw-name">Brume</span><span class="sw-hex">#DCE8EC</span></div>
           <div class="swatch"><div class="chip" style="background:#0a0a0a"></div><span class="sw-name">Encre</span><span class="sw-hex">#0A0A0A</span></div>
           <div class="swatch"><div class="chip" style="background:#0891b2"></div><span class="sw-name">Cyan</span><span class="sw-hex">#0891B2</span></div>
           <div class="swatch"><div class="chip" style="background:#ef4444"></div><span class="sw-name">Corail</span><span class="sw-hex">#EF4444</span></div>
-          <div class="swatch"><div class="chip" style="background:#6b6b6b"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6B6B6B</span></div>
+          <div class="swatch"><div class="chip" style="background:#5e6a6d"></div><span class="sw-name">Ardoise</span><span class="sw-hex">#5E6A6D</span></div>
         </div>
       </div>
 
@@ -293,14 +295,14 @@ import { site } from '../data/content';
 
       <div class="palette-display" data-pal="c3">
         <p class="intro">
-          <strong>Émeraude claire</strong> — émeraude franc et rose corail sur blanc pur. Duo frais et vivant, contraste végétal / charnel qui accompagne le blanc.
+          <strong>Émeraude claire</strong> — émeraude franc et rose corail sur mousse pâle. Fond tinté vert très doux qui renforce le duo végétal / charnel.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ffffff;border:1px solid #e5e5e5"></div><span class="sw-name">Blanc</span><span class="sw-hex">#FFFFFF</span></div>
+          <div class="swatch"><div class="chip" style="background:#dfe8df"></div><span class="sw-name">Mousse</span><span class="sw-hex">#DFE8DF</span></div>
           <div class="swatch"><div class="chip" style="background:#0a0a0a"></div><span class="sw-name">Encre</span><span class="sw-hex">#0A0A0A</span></div>
           <div class="swatch"><div class="chip" style="background:#059669"></div><span class="sw-name">Émeraude</span><span class="sw-hex">#059669</span></div>
           <div class="swatch"><div class="chip" style="background:#fb7185"></div><span class="sw-name">Rose</span><span class="sw-hex">#FB7185</span></div>
-          <div class="swatch"><div class="chip" style="background:#6b6b6b"></div><span class="sw-name">Graphite</span><span class="sw-hex">#6B6B6B</span></div>
+          <div class="swatch"><div class="chip" style="background:#5e6a5e"></div><span class="sw-name">Ardoise</span><span class="sw-hex">#5E6A5E</span></div>
         </div>
       </div>
 
@@ -381,15 +383,15 @@ import { site } from '../data/content';
 
   <style>
     :root[data-palette="c1"] {
-      /* Océan claire — cyan + corail sur blanc */
-      --bg: #ffffff;
+      /* Océan claire — cyan + corail sur brume cool */
+      --bg: #dce8ec;
       --fg: #0a0a0a;
       --fg-rgb: 10, 10, 10;
       --accent: #0891b2;
       --accent2: #ef4444;
-      --muted: #6b6b6b;
-      --border: #e5e5e5;
-      --lead-bg: #fafafa;
+      --muted: #5e6a6d;
+      --border: #c4d1d5;
+      --lead-bg: #e5eff2;
     }
     :root[data-palette="c2"] {
       /* Éditorial — thème de B, dark teal + ambre */
@@ -403,15 +405,15 @@ import { site } from '../data/content';
       --lead-bg: #0e262b;
     }
     :root[data-palette="c3"] {
-      /* Émeraude claire — émeraude + rose sur blanc */
-      --bg: #ffffff;
+      /* Émeraude claire — émeraude + rose sur mousse pâle */
+      --bg: #dfe8df;
       --fg: #0a0a0a;
       --fg-rgb: 10, 10, 10;
       --accent: #059669;
       --accent2: #fb7185;
-      --muted: #6b6b6b;
-      --border: #e5e5e5;
-      --lead-bg: #fafafa;
+      --muted: #5e6a5e;
+      --border: #c4d1c4;
+      --lead-bg: #e6efe6;
     }
     :root[data-palette="c4"] {
       /* Océan foncée — variante nuit, fond abysse */
@@ -650,10 +652,31 @@ import { site } from '../data/content';
       align-items: start;
     }
     .portrait-col { margin: 0; }
-    .portrait-col img {
+    .portrait-frame {
+      --eye-x: 62%;
+      --eye-y: 29%;
+      --zoom: 1.4;
+      --target-x: 33%;
+      --target-y: 33%;
+      position: relative;
       width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    .portrait-frame img {
+      position: absolute;
+      width: calc(var(--zoom) * 100%);
+      height: calc(var(--zoom) * 100% * (4 / 3));
+      left: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-x) - var(--eye-x) * var(--zoom)),
+        0%
+      );
+      top: clamp(
+        calc(100% - var(--zoom) * 100% * (4 / 3)),
+        calc(var(--target-y) - var(--eye-y) * var(--zoom) * (4 / 3)),
+        0%
+      );
       display: block;
       filter: grayscale(1);
     }

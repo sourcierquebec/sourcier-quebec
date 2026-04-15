@@ -40,7 +40,7 @@ import { site } from '../data/content';
       </button>
       <button type="button" data-pal="a2" aria-label="Palette Marine claire">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#ede2c8"></span>
+          <span style="background:#d9ce9c"></span>
           <span style="background:#14284a"></span>
           <span style="background:#1a4a8c"></span>
           <span style="background:#c89548"></span>
@@ -50,7 +50,7 @@ import { site } from '../data/content';
       </button>
       <button type="button" data-pal="a3" aria-label="Palette Rouille claire">
         <span class="pal-chips" aria-hidden="true">
-          <span style="background:#f0e5c8"></span>
+          <span style="background:#ead8a4"></span>
           <span style="background:#1a1510"></span>
           <span style="background:#b04a28"></span>
           <span style="background:#a8855a"></span>
@@ -302,7 +302,7 @@ import { site } from '../data/content';
           <strong>Marine claire</strong> — sable chaud, outremer profond, cobalt pétrole, or vieilli. Accent bleu franc qui porte l'autorité maritime, sur fond kraft.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#ede2c8"></div><span class="sw-name">Sable</span><span class="sw-hex">#EDE2C8</span></div>
+          <div class="swatch"><div class="chip" style="background:#d9ce9c"></div><span class="sw-name">Sable</span><span class="sw-hex">#D9CE9C</span></div>
           <div class="swatch"><div class="chip" style="background:#14284a"></div><span class="sw-name">Outremer</span><span class="sw-hex">#14284A</span></div>
           <div class="swatch"><div class="chip" style="background:#1a4a8c"></div><span class="sw-name">Cobalt</span><span class="sw-hex">#1A4A8C</span></div>
           <div class="swatch"><div class="chip" style="background:#c89548"></div><span class="sw-name">Or</span><span class="sw-hex">#C89548</span></div>
@@ -315,7 +315,7 @@ import { site } from '../data/content';
           <strong>Rouille claire</strong> — crème chaude, charbon profond, rouille terre cuite, tan chamois. Accents qui évoquent le fer, la terre et le temps, sur fond crème.
         </p>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#f0e5c8"></div><span class="sw-name">Crème</span><span class="sw-hex">#F0E5C8</span></div>
+          <div class="swatch"><div class="chip" style="background:#ead8a4"></div><span class="sw-name">Crème</span><span class="sw-hex">#EAD8A4</span></div>
           <div class="swatch"><div class="chip" style="background:#1a1510"></div><span class="sw-name">Charbon</span><span class="sw-hex">#1A1510</span></div>
           <div class="swatch"><div class="chip" style="background:#b04a28"></div><span class="sw-name">Rouille</span><span class="sw-hex">#B04A28</span></div>
           <div class="swatch"><div class="chip" style="background:#a8855a"></div><span class="sw-name">Tan</span><span class="sw-hex">#A8855A</span></div>
@@ -403,24 +403,24 @@ import { site } from '../data/content';
       --card-rgb: 14, 38, 43;
     }
     :root[data-palette="a2"] {
-      /* Marine claire — sable + cobalt + or */
-      --bg: #ede2c8;
+      /* Marine claire — sable profond + cobalt + or */
+      --bg: #d9ce9c;
       --fg: #14284a;
       --fg-rgb: 20, 40, 74;
       --accent: #1a4a8c;
       --accent2: #c89548;
-      --card: #f3e8ce;
-      --card-rgb: 243, 232, 206;
+      --card: #e2d6a2;
+      --card-rgb: 226, 214, 162;
     }
     :root[data-palette="a3"] {
-      /* Rouille claire — crème + charbon + rouille */
-      --bg: #f0e5c8;
+      /* Rouille claire — crème profond + charbon + rouille */
+      --bg: #ead8a4;
       --fg: #1a1510;
       --fg-rgb: 26, 21, 16;
       --accent: #b04a28;
       --accent2: #a8855a;
-      --card: #f5eace;
-      --card-rgb: 245, 234, 206;
+      --card: #f0dea8;
+      --card-rgb: 240, 222, 168;
     }
     :root[data-palette="a4"] {
       /* Marine foncée — variante nuit, fond abysse */
@@ -641,6 +641,11 @@ import { site } from '../data/content';
       color: var(--bg);
     }
     .p-frame {
+      --eye-x: 62%;
+      --eye-y: 29%;
+      --zoom: 1.55;
+      --target-x: 33%;
+      --target-y: 33%;
       aspect-ratio: 3 / 4;
       margin: 0.85rem;
       border: 1px dashed rgba(var(--fg-rgb), 0.45);
@@ -660,10 +665,18 @@ import { site } from '../data/content';
     .p-frame::after { bottom: 8px; right: 8px; border-left: none; border-top: none; }
     .p-frame img {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: calc(var(--zoom) * 100%);
+      height: calc(var(--zoom) * 100%);
+      left: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-x) - var(--eye-x) * var(--zoom)),
+        0%
+      );
+      top: clamp(
+        calc(100% - var(--zoom) * 100%),
+        calc(var(--target-y) - var(--eye-y) * var(--zoom)),
+        0%
+      );
       display: block;
       filter: contrast(1.08) brightness(0.97);
       mix-blend-mode: multiply;
