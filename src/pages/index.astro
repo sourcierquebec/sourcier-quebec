@@ -168,15 +168,10 @@ const romans = ['I', 'II', 'III'];
       <form
         class="form"
         method="POST"
-        action="https://formsubmit.co/sourcierquebec@gmail.com"
-        enctype="multipart/form-data"
+        action="https://formspree.io/f/xaqaebva"
         novalidate
       >
         <input type="hidden" name="_subject" value="Nouvelle demande de soumission — Sourcier Québec" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="https://sourcier.thierrypoitras.com/#contact" />
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <p class="form-privacy">{site.meta.confidentialiteForm}</p>
 
         <fieldset>
@@ -241,7 +236,7 @@ const romans = ['I', 'II', 'III'];
               <div class="input-with-toggle">
                 <input type="number" name="debit" min="0" step="1" placeholder="ex. 500" />
                 <label class="toggle-chip">
-                  <input type="checkbox" name="debit_inconnu" data-disable-target="debit" />
+                  <input type="checkbox" data-disable-target="debit" />
                   <span>Inconnu</span>
                 </label>
               </div>
@@ -286,16 +281,16 @@ const romans = ['I', 'II', 'III'];
 
         <fieldset>
           <legend>Plan cadastral</legend>
-          <label>
-            <span>Joindre votre plan cadastral (PDF, JPG, PNG)</span>
-            <input type="file" name="cadastre" accept=".pdf,.jpg,.jpeg,.png" />
-          </label>
           <small class="form-note">
-            Joindre le plan cadastral permet une étude préalable avant intervention.
+            Si vous disposez d'un plan cadastral, vous pourrez nous le transmettre par courriel après l'envoi de votre demande.
           </small>
         </fieldset>
 
         <button type="submit">Envoyer la demande →</button>
+        <div class="form-success" hidden>
+          <p>Formulaire envoyé</p>
+          <p class="form-success-sub">Votre demande a bien été transmise. Nous vous répondrons dans les meilleurs délais.</p>
+        </div>
       </form>
 
       <aside class="coords">
@@ -311,6 +306,43 @@ const romans = ['I', 'II', 'III'];
       (function () {
         var form = document.querySelector('.contact .form');
         if (!form) return;
+
+        // Soumission AJAX via Formspree
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          var originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Envoi en cours…';
+
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' },
+          })
+            .then(function (res) {
+              if (res.ok) {
+                form.reset();
+                var success = form.querySelector('.form-success');
+                if (success) success.removeAttribute('hidden');
+                btn.style.display = 'none';
+              } else {
+                res.json().then(function (data) {
+                  var msg = data.errors
+                    ? data.errors.map(function (err) { return err.message; }).join(', ')
+                    : 'Une erreur est survenue.';
+                  alert(msg);
+                  btn.disabled = false;
+                  btn.textContent = originalText;
+                });
+              }
+            })
+            .catch(function () {
+              alert('Erreur réseau. Veuillez réessayer.');
+              btn.disabled = false;
+              btn.textContent = originalText;
+            });
+        });
 
         // Particulier / Entreprise : révèle le champ entreprise
         form.querySelectorAll('input[name="type_client"]').forEach(function (r) {
@@ -332,14 +364,22 @@ const romans = ['I', 'II', 'III'];
           });
         });
 
-        // Checkbox Inconnu : désactive le champ débit
+        // Checkbox Inconnu : remplace le champ débit par "Inconnu"
         form.querySelectorAll('[data-disable-target]').forEach(function (cb) {
           cb.addEventListener('change', function () {
             var name = cb.getAttribute('data-disable-target');
             var input = form.querySelector('input[name="' + name + '"]');
             if (!input) return;
-            input.disabled = cb.checked;
-            if (cb.checked) input.value = '';
+            if (cb.checked) {
+              input.dataset.prevValue = input.value;
+              input.type = 'text';
+              input.value = 'Inconnu';
+              input.readOnly = true;
+            } else {
+              input.type = 'number';
+              input.readOnly = false;
+              input.value = input.dataset.prevValue || '';
+            }
           });
         });
       })();
@@ -1094,6 +1134,24 @@ const romans = ['I', 'II', 'III'];
     .form input:disabled {
       opacity: 0.4;
       cursor: not-allowed;
+    }
+    .form-success {
+      padding: 1.5rem;
+      background: rgba(var(--accent-rgb), 0.12);
+      border: 1px solid var(--accent);
+      text-align: center;
+    }
+    .form-success p:first-child {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+    }
+    .form-success-sub {
+      font-size: 0.95rem;
+      color: rgba(var(--fg-rgb), 0.75);
+      margin: 0;
     }
     [hidden] { display: none !important; }
     .coords {
