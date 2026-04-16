@@ -372,6 +372,9 @@ const romans = ['I', 'II', 'III'];
   </footer>
 
   <style>
+    :global(*, *::before, *::after) {
+      box-sizing: border-box;
+    }
     :global(html, body) {
       margin: 0;
       padding: 0;
@@ -742,7 +745,7 @@ const romans = ['I', 'II', 'III'];
     }
     .zone-city {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
       font-weight: 500;
       margin: 0 0 0.25rem;
     }
@@ -887,6 +890,7 @@ const romans = ['I', 'II', 'III'];
       padding: 0.7rem 0.85rem;
       border-radius: 2px;
       transition: border-color 180ms ease, background 180ms ease;
+      min-width: 0;
     }
     .form textarea {
       font-family: 'Inter', sans-serif;
@@ -1055,8 +1059,9 @@ const romans = ['I', 'II', 'III'];
     }
     .combo input { flex: 1; }
     .combo select {
-      flex: 0 0 auto;
+      flex: 0 1 auto;
       font-size: 0.95rem;
+      min-width: 0;
     }
     .form-note {
       display: block;
@@ -1139,7 +1144,8 @@ const romans = ['I', 'II', 'III'];
     }
     .f-links {
       display: flex;
-      gap: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
     }
     .f-links a {
       color: rgba(var(--fg-rgb), 0.7);
@@ -1180,6 +1186,8 @@ const romans = ['I', 'II', 'III'];
       .f-prix { justify-content: flex-start; }
       .contact-wrap { grid-template-columns: 1fr; }
       .row2 { grid-template-columns: 1fr; }
+      .radio-inline { padding: 0.75rem 1.1rem; min-height: 44px; }
+      .faq-list details p { margin-left: 0; }
     }
   </style>
 </Base>
