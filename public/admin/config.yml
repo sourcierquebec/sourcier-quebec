@@ -1,13 +1,33 @@
 # ─────────────────────────────────────────────
 # Decap CMS — Sourcier Québec
-# ─────────────────────────────────────────────
-# Backend actuel : proxy local (npx decap-server)
-# Pour la production : remplacer par DecapBridge
+# Auth via DecapBridge (PKCE)
 # ─────────────────────────────────────────────
 
 backend:
-  name: proxy
-  proxy_url: http://localhost:8081/api/v1
+  name: git-gateway
+  repo: tradieux/sourcier-quebec
+  branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/08a80d07-a504-49a5-a821-d83677760f8c/pkce
+  auth_token_endpoint: /sites/08a80d07-a504-49a5-a821-d83677760f8c/token
+  gateway_url: https://gateway.decapbridge.com
+  commit_messages:
+    create: 'Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    update: 'Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    delete: 'Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    uploadMedia: 'Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    deleteMedia: 'Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    openAuthoring: 'Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge'
+
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+site_url: https://sourcier.thierrypoitras.com
 
 locale: fr
 media_folder: public/images
