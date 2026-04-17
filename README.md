@@ -2,12 +2,16 @@
 
 Site vitrine de **Thomas, sourcier professionnel** basé à La Pocatière (Québec).
 
+> 📘 **Thomas, si c'est la première fois que tu ouvres ce dépôt** : va directement à **[docs/GUIDE-THOMAS.md](docs/GUIDE-THOMAS.md)**. Tout y est expliqué pour toi, sans jargon.
+
 ## Stack
 
-- **Framework** : Astro (static site generator)
-- **CMS** : Decap CMS (ex-Netlify CMS) — édition via interface web `/admin`
-- **Hébergement** : Cloudflare Pages ou Netlify (à confirmer)
-- **Source** : ce dépôt Git
+- **Framework** : Astro 5 (static site generator)
+- **CMS** : Decap CMS + DecapBridge (PKCE) — édition via `/admin`
+- **Hébergement** : Cloudflare Pages (branche `main` → build auto)
+- **Formulaire** : Formspree
+- **Domaine** : `sourcierquebec.ca` (GoDaddy, NS délégués à Cloudflare)
+- **Source** : ce dépôt (`sourcierquebec/sourcier-quebec`)
 
 ## Objectif
 
