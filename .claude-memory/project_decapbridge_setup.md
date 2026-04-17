@@ -1,33 +1,25 @@
 ---
-name: Setup DecapBridge en cours
-description: Étapes restantes pour rendre le panneau /admin fonctionnel avec DecapBridge — en attente du site ID
+name: Setup DecapBridge
+description: DecapBridge branché sur /admin en PKCE — site ID et config actifs en prod
 type: project
-originSessionId: ca923888-562b-4509-af39-021b91ee9f59
+originSessionId: c232252e-efdc-40d1-9961-5862be81863d
 ---
-**État au 2026-04-16** : Decap CMS intégré dans le code (8 fichiers YAML, config.yml, admin/index.html). Repo pushé sur `tradieux/sourcier-quebec`. Le panneau `/admin` n'est pas encore fonctionnel — il manque le backend DecapBridge.
+**État au 2026-04-17** : `/admin` branché sur DecapBridge en PKCE. Déployé sur `https://sourcier.thierrypoitras.com/admin`.
 
-**Config DecapBridge trouvée** (exemple réel) :
-```yaml
-backend:
-  name: git-gateway
-  repo: tradieux/sourcier-quebec
-  branch: main
-  auth_type: pkce
-  base_url: https://auth.decapbridge.com
-  auth_endpoint: /sites/<SITE_ID>/pkce
-  auth_token_endpoint: /sites/<SITE_ID>/token
-  gateway_url: https://gateway.decapbridge.com
-```
+**Site ID DecapBridge** : `01dd29e0-54df-440b-9965-b746c1b4e770` (compte Thomas `sourcierquebec@gmail.com`, créé 2026-04-17). Ancien site ID `08a80d07-a504-49a5-a821-d83677760f8c` (compte Thierry) à supprimer une fois le nouveau validé.
+**Repo GitHub** : `sourcierquebec/sourcier-quebec` (branch `main`) — transféré depuis `tradieux` le 2026-04-17.
+**Auth type** : Classic (email/password) côté DecapBridge. Compte DecapBridge sous `sourcierquebec@gmail.com`.
+**Decap CMS** : `^3.8.3` (requis par DecapBridge).
 
-**Étapes restantes pour Thierry :**
-1. Créer un compte sur https://decapbridge.com/auth/signup
-2. Ajouter un site : provider GitHub, repo `tradieux/sourcier-quebec`
-3. Login URL : `https://sourcier.thierrypoitras.com/admin`
-4. Auth type : **Classic** (email/password — adapté pour Thomas)
-5. Créer un **GitHub fine-grained token** (Settings → Developer settings → Personal access tokens) avec accès `Contents: read/write` sur le repo `sourcier-quebec`
-6. Donner le **site ID** (UUID) à Claude pour mettre à jour `public/admin/config.yml`
-7. Rebuild Docker sur le VPS
+**Config clé** dans `public/admin/config.yml` :
+- `backend.name: git-gateway` + `auth_type: pkce` + endpoints `auth.decapbridge.com/sites/<SITE_ID>/…`
+- `gateway_url: https://gateway.decapbridge.com`
+- claims `email / first_name / last_name / avatar_url`
 
-**Aussi** : mettre à jour `admin/index.html` pour utiliser Decap CMS >= 3.8.3 (requis pour login Google/Microsoft).
+**À faire au transfert vers Thomas** :
+- Recréer le site dans le compte DecapBridge de Thomas (sourcierquebec@gmail.com) → nouveau site ID
+- Remplacer l'UUID dans `config.yml` (2 endroits : auth_endpoint + auth_token_endpoint)
+- Régénérer le GitHub fine-grained token sous le nouveau compte GitHub `sourcierquebec`
+- Rebuild Docker / redéployer
 
-**How to apply:** À la prochaine session, demander le site ID DecapBridge. Mettre à jour config.yml avec le backend, rebuild, tester `/admin`.
+**How to apply:** Le panneau est prêt. Si le client signale un souci de login ou d'édition, vérifier d'abord (a) le token GitHub n'est pas expiré, (b) le repo pointe bien sur `tradieux/sourcier-quebec`.

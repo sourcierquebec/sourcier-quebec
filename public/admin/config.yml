@@ -5,12 +5,12 @@
 
 backend:
   name: git-gateway
-  repo: tradieux/sourcier-quebec
+  repo: sourcierquebec/sourcier-quebec
   branch: main
   auth_type: pkce
   base_url: https://auth.decapbridge.com
-  auth_endpoint: /sites/08a80d07-a504-49a5-a821-d83677760f8c/pkce
-  auth_token_endpoint: /sites/08a80d07-a504-49a5-a821-d83677760f8c/token
+  auth_endpoint: /sites/01dd29e0-54df-440b-9965-b746c1b4e770/pkce
+  auth_token_endpoint: /sites/01dd29e0-54df-440b-9965-b746c1b4e770/token
   gateway_url: https://gateway.decapbridge.com
   commit_messages:
     create: 'Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
@@ -27,7 +27,7 @@ auth:
   avatar_url_claim: avatar_url
 
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-site_url: https://sourcier.thierrypoitras.com
+site_url: https://sourcier-quebec.pages.dev
 
 locale: fr
 media_folder: public/images
